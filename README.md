@@ -1,0 +1,2 @@
+# EasySpare
+Expenses tracking Application 
