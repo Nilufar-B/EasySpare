@@ -27,6 +27,23 @@ struct CustomButton: View {
     }
 }
 
+struct PassShowButton: ViewModifier{
+    @Binding var isShow: Bool
+    
+    public func body(content: Content) -> some View {
+        HStack {
+            content
+ 
+            Button(action: {
+                isShow.toggle()
+            }, label: {
+                Image(systemName: isShow ? "eye.fill" : "eye.slash.fill")
+                    .foregroundColor(.gray)
+            })
+        }
+    }
+}
+
 #Preview {
     CustomButton()
         .padding(20)

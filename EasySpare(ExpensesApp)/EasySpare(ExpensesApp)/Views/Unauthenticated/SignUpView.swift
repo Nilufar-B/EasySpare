@@ -1,17 +1,17 @@
 //
-//  LoginView.swift
+//  SignUpView.swift
 //  EasySpare(ExpensesApp)
 //
-//  Created by Nilufar Bakhridinova on 2024-05-03.
+//  Created by Nilufar Bakhridinova on 2024-05-05.
 //
 
 import SwiftUI
 
-struct LoginView: View {
+struct SignUpView: View {
     
     @Environment (\.presentationMode) var mode: Binding<PresentationMode>
-    @StateObject var loginVM = MainViewModel.shared
-    
+    @StateObject var loginVM = MainViewModel.shared  // Используйте ViewModel, подходящий для регистрации, если нужно
+
     var body: some View {
         GeometryReader{ geometry in
             ZStack{
@@ -24,54 +24,49 @@ struct LoginView: View {
                 
                 VStack{
                 
-                    Image(systemName:"books.vertical.circle.fill")
+                    Image(systemName:"person.crop.circle.fill")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 40)
                         .foregroundColor(.black)
                         .padding(.bottom, 40)
                     
-                    Text("Log In")
+                    Text("Sign Up")
                         .font(.system(size: 26))
                         .foregroundColor(.primary)
-                        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity, alignment: .leading)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, 4)
                     
-                    Text("Enter your credentials")
+                    Text("Create your account")
                         .font(.system(size: 16))
                         .foregroundColor(.secondary)
-                        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity, alignment: .leading)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, 40)
                     
-                    TextFieldLine(title: "Email", placeholder: "Enter your email adress", txt: $loginVM.txtEmail,keyboardType: .emailAddress)
+                    TextFieldLine(title: "Email", placeholder: "Enter your email address", txt: $loginVM.txtEmail, keyboardType: .emailAddress)
                         .padding(.bottom, 8)
                     
                     TextSecureLine(title: "Password", placeholder: "Enter your password", txt: $loginVM.txtPassword, isShowPassword: $loginVM.isShowPassword)
                         .padding(.bottom, 8)
-                       
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("Forgot Password?")
-                            .font(.system(size: 16))
-                            .foregroundColor(.secondary)
-                          
-                    })
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                    .padding(.bottom, 40)
-                    
-                    CustomButton(title: "Log In")
+
+                    TextSecureLine(title: "Confirm Password", placeholder: "Confirm your password", txt: $loginVM.txtPasswordConfirm, isShowPassword: $loginVM.isShowPassword)
+                        .padding(.bottom, 20)
+
+                    CustomButton(title: "Register")
                         .padding(.bottom, 8)
                     
                     HStack{
-                        Text("Don't have an account?")
+                        Text("Already have an account?")
                             .font(.system(size: 16))
                             .foregroundColor(.secondary)
                         
-                        Text("Sign Up")
+                        Text("Log In")
                             .font(.system(size: 16))
                             .bold()
                             .foregroundColor(.secondary)
+                            .onTapGesture {
+                                mode.wrappedValue.dismiss()
+                            }
                     }
                     
                     Spacer()
@@ -79,6 +74,7 @@ struct LoginView: View {
                 .padding(.top, 30)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)
+
                 VStack{
                     HStack{
                         Button(action: {
@@ -89,7 +85,6 @@ struct LoginView: View {
                                 .scaledToFit()
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(.black)
-                               
                         })
                         .padding()
                         Spacer()
@@ -97,7 +92,6 @@ struct LoginView: View {
                     Spacer()
                 }
                 .frame(width: geometry.size.width, alignment: .leading)
-           
             }
             .padding(.horizontal, 5)
             .padding(.top, 30)
@@ -111,5 +105,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    SignUpView()
 }

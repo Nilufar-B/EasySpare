@@ -39,7 +39,7 @@ struct WelcomeView: View {
                         .padding(.bottom, 20)
                     
                     NavigationLink {
-                        LoginView()
+                        SignInView()
                     } label: {
                         CustomButton(title: "Get Started"){
                             
