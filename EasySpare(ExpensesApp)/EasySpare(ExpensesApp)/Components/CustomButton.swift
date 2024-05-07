@@ -22,7 +22,7 @@ struct CustomButton: View {
         })
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
         .background(Color.mint)
-        .cornerRadius(20)
+        .cornerRadius(10)
         
     }
 }

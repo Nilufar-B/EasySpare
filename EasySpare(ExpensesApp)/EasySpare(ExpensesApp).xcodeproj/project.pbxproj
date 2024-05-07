@@ -15,12 +15,12 @@
 		A3259BC82BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3259BC72BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift */; };
 		A3259BCA2BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3259BC92BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift */; };
 		A378B01F2BE4DE2C004FED57 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B01E2BE4DE2C004FED57 /* WelcomeView.swift */; };
-		A378B0212BE4DE38004FED57 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0202BE4DE38004FED57 /* SignInView.swift */; };
+		A378B0212BE4DE38004FED57 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0202BE4DE38004FED57 /* AuthenticationView.swift */; };
 		A378B0232BE4DE46004FED57 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0222BE4DE46004FED57 /* CustomButton.swift */; };
 		A378B0262BE4E643004FED57 /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = A378B0252BE4E643004FED57 /* CountryPicker */; };
 		A378B0282BE4E69C004FED57 /* CountryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0272BE4E69C004FED57 /* CountryPicker.swift */; };
 		A378B02A2BE50AC0004FED57 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0292BE50AC0004FED57 /* LoginView.swift */; };
-		A378B02D2BE54967004FED57 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B02C2BE54967004FED57 /* MainViewModel.swift */; };
+		A378B02D2BE54967004FED57 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B02C2BE54967004FED57 /* SignInViewModel.swift */; };
 		A378B02F2BE54B0B004FED57 /* TextFieldLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B02E2BE54B0B004FED57 /* TextFieldLine.swift */; };
 		A378B0332BE7D142004FED57 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0322BE7D142004FED57 /* SignUpView.swift */; };
 		A378B0352BE8D705004FED57 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0342BE8D705004FED57 /* ProfileView.swift */; };
@@ -35,6 +35,8 @@
 		A378B0482BE8E006004FED57 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A378B0472BE8E006004FED57 /* FirebaseFirestoreSwift */; };
 		A378B04A2BE8E006004FED57 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A378B0492BE8E006004FED57 /* FirebaseStorage */; };
 		A378B04C2BE8E006004FED57 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = A378B04B2BE8E006004FED57 /* FirebaseStorageCombine-Community */; };
+		A378B04E2BE8F473004FED57 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B04D2BE8F473004FED57 /* AuthenticationManager.swift */; };
+		A378B0502BE9FD24004FED57 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B04F2BE9FD24004FED57 /* ExpensesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,15 +68,17 @@
 		A3259BC72BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySpare_ExpensesApp_UITests.swift; sourceTree = "<group>"; };
 		A3259BC92BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySpare_ExpensesApp_UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A378B01E2BE4DE2C004FED57 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		A378B0202BE4DE38004FED57 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		A378B0202BE4DE38004FED57 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		A378B0222BE4DE46004FED57 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A378B0272BE4E69C004FED57 /* CountryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPicker.swift; sourceTree = "<group>"; };
 		A378B0292BE50AC0004FED57 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		A378B02C2BE54967004FED57 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		A378B02C2BE54967004FED57 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		A378B02E2BE54B0B004FED57 /* TextFieldLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldLine.swift; sourceTree = "<group>"; };
 		A378B0322BE7D142004FED57 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		A378B0342BE8D705004FED57 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = "EasySpare(ExpensesApp)/Views/Unauthenticated/ProfileView.swift"; sourceTree = SOURCE_ROOT; };
 		A378B0362BE8DEB7004FED57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A378B04D2BE8F473004FED57 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		A378B04F2BE9FD24004FED57 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpensesView.swift; path = "EasySpare(ExpensesApp)/Views/ExpensesView.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +182,7 @@
 			children = (
 				A378B01D2BE4DE1B004FED57 /* Authenticated */,
 				A378B01C2BE4DE0D004FED57 /* Unauthenticated */,
+				A378B04D2BE8F473004FED57 /* AuthenticationManager.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -196,7 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				A378B01E2BE4DE2C004FED57 /* WelcomeView.swift */,
-				A378B0202BE4DE38004FED57 /* SignInView.swift */,
+				A378B0202BE4DE38004FED57 /* AuthenticationView.swift */,
 				A378B0292BE50AC0004FED57 /* LoginView.swift */,
 				A378B0322BE7D142004FED57 /* SignUpView.swift */,
 			);
@@ -207,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				A378B0342BE8D705004FED57 /* ProfileView.swift */,
+				A378B04F2BE9FD24004FED57 /* ExpensesView.swift */,
 			);
 			path = Authenticated;
 			sourceTree = "<group>";
@@ -214,7 +220,7 @@
 		A378B02B2BE54953004FED57 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				A378B02C2BE54967004FED57 /* MainViewModel.swift */,
+				A378B02C2BE54967004FED57 /* SignInViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -370,14 +376,16 @@
 				A3259BAF2BE4DC650076A5B8 /* ContentView.swift in Sources */,
 				A378B02A2BE50AC0004FED57 /* LoginView.swift in Sources */,
 				A378B01F2BE4DE2C004FED57 /* WelcomeView.swift in Sources */,
-				A378B0212BE4DE38004FED57 /* SignInView.swift in Sources */,
+				A378B0212BE4DE38004FED57 /* AuthenticationView.swift in Sources */,
 				A3259BAD2BE4DC650076A5B8 /* EasySpare_ExpensesApp_App.swift in Sources */,
 				A378B02F2BE54B0B004FED57 /* TextFieldLine.swift in Sources */,
 				A378B0332BE7D142004FED57 /* SignUpView.swift in Sources */,
 				A378B0282BE4E69C004FED57 /* CountryPicker.swift in Sources */,
 				A378B0232BE4DE46004FED57 /* CustomButton.swift in Sources */,
+				A378B04E2BE8F473004FED57 /* AuthenticationManager.swift in Sources */,
 				A378B0352BE8D705004FED57 /* ProfileView.swift in Sources */,
-				A378B02D2BE54967004FED57 /* MainViewModel.swift in Sources */,
+				A378B02D2BE54967004FED57 /* SignInViewModel.swift in Sources */,
+				A378B0502BE9FD24004FED57 /* ExpensesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

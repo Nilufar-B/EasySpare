@@ -18,7 +18,7 @@ struct TextFieldLine: View {
         VStack{
             Text(title)
                 .font(.system(size: 16))
-                .foregroundColor(.secondary)
+                .foregroundColor(.black)
                 .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity, alignment: .leading)
             
            
@@ -46,7 +46,7 @@ struct TextSecureLine: View {
         VStack{
             Text(title)
                 .font(.system(size: 16))
-                .foregroundColor(.secondary)
+                .foregroundColor(.black)
                 .frame(minWidth: 0
                        , maxWidth: .infinity, alignment: .leading)
             
