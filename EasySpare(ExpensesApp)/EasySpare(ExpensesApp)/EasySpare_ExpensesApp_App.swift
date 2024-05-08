@@ -24,7 +24,7 @@ struct EasySpare_ExpensesApp_App: App {
     
     var body: some Scene {
         WindowGroup {
-               ExpensesView()
+            ExpensesView(showSignInView: .constant(false))
         }
     }
 }

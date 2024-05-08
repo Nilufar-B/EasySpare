@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     
-    @State private var showSignInView: Bool = false
+    @Binding var showSignInView: Bool
     
     var body: some View {
 
@@ -44,7 +44,7 @@ struct WelcomeView: View {
                                 .padding(.bottom, 20)
                             
                             NavigationLink {
-                                LoginView()
+                                LoginView(showSignInView: $showSignInView)
                             } label: {
                           
                                 Text("Get Started")
@@ -79,7 +79,7 @@ struct WelcomeView: View {
 
 #Preview {
     NavigationStack{
-        WelcomeView()
+        WelcomeView(showSignInView: .constant(false))
     }
 
    

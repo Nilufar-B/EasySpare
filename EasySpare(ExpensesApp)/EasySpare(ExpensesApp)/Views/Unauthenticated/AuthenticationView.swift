@@ -14,6 +14,7 @@ struct AuthenticationView: View{
     @State var txtMobile: String = ""
     @State var isPicker: Bool = false
     @State var countryObj: Country?
+    @Binding var showSgnInView: Bool
     
     var body: some View{
         NavigationStack{
@@ -75,7 +76,7 @@ struct AuthenticationView: View{
                             .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity)
                             .padding(.bottom, 25)
                         
-                        NavigationLink(destination: LoginView()) {
+                        NavigationLink(destination: LoginView(showSignInView: $showSgnInView)) {
                             HStack {
                                 Image("icon_google")
                                     .resizable()
@@ -138,5 +139,5 @@ struct AuthenticationView: View{
 }
 
 #Preview {
-    AuthenticationView()
+    AuthenticationView(showSgnInView: .constant(false))
 }

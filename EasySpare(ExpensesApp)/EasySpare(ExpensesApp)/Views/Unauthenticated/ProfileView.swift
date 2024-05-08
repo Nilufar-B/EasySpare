@@ -6,16 +6,9 @@
 //
 import SwiftUI
 
-@MainActor
-final class ProfileViewModel: ObservableObject {
-    func signOut() throws {
-        try AuthenticationManager.shared.signOut()
-    }
-}
-
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var viewModel = ProfileViewModel()
+    @StateObject private var loginVM = AuthenticationViewModel()
     @Binding var showSignInView: Bool
     
     var body: some View {
@@ -44,7 +37,7 @@ struct ProfileView: View {
                         Button(action: {
                             Task{
                                 do{
-                                    try viewModel.signOut()
+                                    try loginVM.signOut()
                                     showSignInView = true
                                 }catch{
                                     print(error)

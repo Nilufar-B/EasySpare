@@ -10,8 +10,9 @@ import SwiftUI
 struct SignUpView: View {
     
     @Environment (\.presentationMode) var mode: Binding<PresentationMode>
-    @StateObject var loginVM = SignInViewModel.shared  
+    @StateObject var loginVM = AuthenticationViewModel.shared  
     @State private var isRegistrationSuccess = false
+    @Binding var showSignInView: Bool
 
     var body: some View {
         GeometryReader{ geometry in
@@ -40,9 +41,6 @@ struct SignUpView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                             .padding(.bottom, 40)
                         
-                        TextFieldLine(title: "Name", placeholder: "Enter your name", txt: $loginVM.txtEmail, keyboardType: .alphabet)
-                            .padding(.bottom, 8)
-                        
                         TextFieldLine(title: "Email", placeholder: "Enter your email address", txt: $loginVM.txtEmail, keyboardType: .emailAddress)
                             .padding(.bottom, 8)
                         
@@ -53,7 +51,15 @@ struct SignUpView: View {
                             .padding(.bottom, 20)
                         
                         CustomButton(title: "Register"){
-                            loginVM.logIn()
+                            Task{
+                                do{
+                                    try await loginVM.signUp()
+                                    showSignInView = false
+                                    return
+                                }catch{
+                                    print(error)
+                                }
+                            }
                         }
                         .padding(.bottom, 8)
                         
@@ -64,7 +70,7 @@ struct SignUpView: View {
                                 .font(.system(size: 16))
                                 .foregroundColor(.secondary)
                             
-                            NavigationLink(destination: LoginView()) {
+                            NavigationLink(destination: LoginView(showSignInView: $showSignInView)) {
                                 
                                 Text("Log In")
                                     .font(.system(size: 16))
@@ -113,6 +119,6 @@ struct SignUpView: View {
 }
 
 #Preview {
-        SignUpView()
+SignUpView(showSignInView: .constant(true))
     
 }

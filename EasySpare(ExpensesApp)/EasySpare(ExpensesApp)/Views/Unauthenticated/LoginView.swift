@@ -11,8 +11,9 @@ import SwiftUI
 struct LoginView: View {
     
     @Environment (\.presentationMode) var mode: Binding<PresentationMode>
-    @StateObject var loginVM = SignInViewModel.shared
+    @StateObject var loginVM = AuthenticationViewModel.shared
     @State private var isLoggedIn = false
+    @Binding var showSignInView: Bool
 
     
     var body: some View {
@@ -54,7 +55,14 @@ struct LoginView: View {
                             .padding(.bottom, 8)
                         
                         Button(action: {
-                            //logic to forgot password
+                            Task{
+                                do{
+                                    try await loginVM.resetPassword()
+                                    print("Password reset")
+                                }catch{
+                                    print(error)
+                                }
+                            }
                         }, label: {
                             Text("Forgot Password?")
                                 .font(.system(size: 16))
@@ -65,7 +73,15 @@ struct LoginView: View {
                         .padding(.bottom, 40)
                         
                         CustomButton(title: "Log In") {
-                            //check if user exist then navigate to homeView
+                            Task{
+                                do{
+                                    try await loginVM.signIn()
+                                    showSignInView = false
+                                    return
+                                }catch{
+                                    print(error)
+                                }
+                            }
                        
                         }
                         .padding(.bottom, 8)
@@ -75,7 +91,7 @@ struct LoginView: View {
                                     .font(.system(size: 16))
                                     .foregroundColor(.secondary)
                                 
-                                NavigationLink(destination: SignUpView()) {
+                                NavigationLink(destination: SignUpView(showSignInView: $showSignInView)) {
                                     
                                 Text("Sign Up")
                                     .font(.system(size: 16))
@@ -126,6 +142,6 @@ struct LoginView: View {
 
 #Preview {
     NavigationStack{
-        LoginView()
+        LoginView(showSignInView: .constant(false))
     }
 }

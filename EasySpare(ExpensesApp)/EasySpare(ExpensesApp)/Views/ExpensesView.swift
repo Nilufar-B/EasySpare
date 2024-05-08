@@ -9,26 +9,15 @@ import SwiftUI
 
 struct ExpensesView: View {
     
-    @State private var showSignInView: Bool = false
+    @Binding var showSignInView: Bool
     
     var body: some View {
         ZStack{
-            NavigationStack{
-                ProfileView(showSignInView: $showSignInView)
-            }
+            Text("ExpensesView")
         }
-        .onAppear{
-            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
-            self.showSignInView = authUser == nil
-        }
-        .fullScreenCover(isPresented: $showSignInView, content: {
-            NavigationStack{
-                WelcomeView()
-            }
-        })
     }
 }
 
 #Preview {
-    ExpensesView()
+    ExpensesView(showSignInView: .constant(false))
 }

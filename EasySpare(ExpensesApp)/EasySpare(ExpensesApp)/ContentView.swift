@@ -9,12 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State private var showSignInView: Bool = false
+    
     var body: some View {
-        VStack {
-           
-            
+        ZStack{
+            NavigationStack{
+                ExpensesView(showSignInView: $showSignInView)
+            }
         }
-        .padding()
+        .onAppear{
+            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
+            self.showSignInView = authUser == nil
+        }
+        .fullScreenCover(isPresented: $showSignInView, content: {
+            NavigationStack{
+                WelcomeView(showSignInView: $showSignInView)
+            }
+        })
     }
 }
 
