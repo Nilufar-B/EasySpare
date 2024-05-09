@@ -15,6 +15,7 @@ struct LoginView: View {
     @State private var isLoggedIn = false
     @Binding var showSignInView: Bool
 
+
     
     var body: some View {
         GeometryReader{ geometry in
@@ -142,6 +143,6 @@ struct LoginView: View {
 
 #Preview {
     NavigationStack{
-        LoginView(showSignInView: .constant(false))
+       LoginView(showSignInView: .constant(false))
     }
 }
