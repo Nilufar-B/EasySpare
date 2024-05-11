@@ -33,11 +33,35 @@ struct ContentView: View {
                 }
             })
         }*/
-        
-         @State private var showSignInView: Bool = false
-         @State private var activeTab: Tab = .recents
+        @AppStorage("hasShownIntro") private var hasShownIntro: Bool = false
+         @State private var showSignInView: Bool = true
+         @State private var activeTab: Tab = .expenses
          
          var body: some View {
+             ZStack{
+                 if !hasShownIntro {
+                     IntroScreen(onContinue: {
+                         hasShownIntro = true
+                         checkLoginStatus()
+                     })
+                 }else if showSignInView {
+                     LoginView(showSignInView: $showSignInView)
+                 }else {
+                //  SettingsView.(showSignInView: $showSignInView)
+                     TabView(selection: $activeTab) {
+                         ExpensesView()
+                         .tabItem { Tab.expenses.tabContent }.tag(Tab.expenses)
+                     SearchView()
+                             .tabItem { Tab.search.tabContent }.tag(Tab.search)
+                     GraphView()
+                             .tabItem { Tab.charts.tabContent }.tag(Tab.charts)
+                     SettingsView()
+                             .tabItem { Tab.settings.tabContent }.tag(Tab.settings)
+                     }
+                     .tint(appTint)
+                 }
+             }
+             /*
          ZStack{
          NavigationStack{
          //  ExpensesView(showSignInView: $showSignInView)
@@ -54,12 +78,19 @@ struct ContentView: View {
          let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
          self.showSignInView = authUser == nil
          }
-         .fullScreenCover(isPresented: $showSignInView, content: {
-         NavigationStack{
-         WelcomeView(showSignInView: $showSignInView)
+         .sheet(isPresented: $hasShownIntro, content: {
+             IntroScreen()
+                 .interactiveDismissDisabled()
+         })*/
          }
-         })
-         }
+    @MainActor
+    private func checkLoginStatus() {
+           if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser() {
+               showSignInView = false
+           } else {
+               showSignInView = true
+           }
+       }
     }
 
     

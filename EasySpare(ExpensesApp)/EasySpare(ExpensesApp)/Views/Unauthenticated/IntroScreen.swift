@@ -10,6 +10,8 @@ import SwiftUI
 struct IntroScreen: View {
     
     @AppStorage("hasShownIntro") private var hasShownIntro: Bool = true
+    var onContinue: () -> Void
+    
     var body: some View {
         
         VStack(spacing: 15){
@@ -34,6 +36,7 @@ struct IntroScreen: View {
             //when tapped the app storage will be set to false, and thus it won't appear again when the app opens
             CustomButton(title: "Continue"){
                 hasShownIntro = false
+                onContinue ()
             }
             }
         .padding(15)
@@ -61,5 +64,5 @@ func PointView(symbol: String, title: String, subTitle: String) -> some View {
 
 
 #Preview {
-    IntroScreen()
+    IntroScreen(onContinue: {})
 }

@@ -12,7 +12,6 @@ struct LoginView: View {
     
     @Environment (\.presentationMode) var mode: Binding<PresentationMode>
     @StateObject var loginVM = AuthenticationViewModel.shared
-    @State private var isLoggedIn = false
     @Binding var showSignInView: Bool
 
 
