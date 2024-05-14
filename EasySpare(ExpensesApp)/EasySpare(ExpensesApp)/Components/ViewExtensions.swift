@@ -43,6 +43,14 @@ extension View {
         return 1 + scale
     }
     
+    func currencyString(_ value: Double, allowedDigits: Int = 2) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = allowedDigits
+        
+        return formatter.string(from: .init(value: value)) ?? ""
+    }
+    
 }
 
 extension Date {

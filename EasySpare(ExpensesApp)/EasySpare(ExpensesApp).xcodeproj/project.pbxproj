@@ -54,6 +54,9 @@
 		A378B0832BEE7297004FED57 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0822BEE7297004FED57 /* SettingsView.swift */; };
 		A378B0852BEE77DB004FED57 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0842BEE77DB004FED57 /* ViewExtensions.swift */; };
 		A378B0872BEE7DCB004FED57 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0862BEE7DCB004FED57 /* HeaderView.swift */; };
+		A378B0892BF0A733004FED57 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0882BF0A733004FED57 /* CardView.swift */; };
+		A378B08C2BF2234E004FED57 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B08B2BF2234E004FED57 /* CustomSegmentedControl.swift */; };
+		A378B08E2BF2258B004FED57 /* TransaktionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B08D2BF2258B004FED57 /* TransaktionCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +117,9 @@
 		A378B0822BEE7297004FED57 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A378B0842BEE77DB004FED57 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		A378B0862BEE7DCB004FED57 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		A378B0882BF0A733004FED57 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		A378B08B2BF2234E004FED57 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		A378B08D2BF2258B004FED57 /* TransaktionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransaktionCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +224,7 @@
 		A378B01A2BE4DDF9004FED57 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A378B08A2BF22320004FED57 /* ViewComponents */,
 				A378B01D2BE4DE1B004FED57 /* Authenticated */,
 				A378B01C2BE4DE0D004FED57 /* Unauthenticated */,
 				A378B04D2BE8F473004FED57 /* AuthenticationManager.swift */,
@@ -292,6 +299,16 @@
 				A378B0592BEBDCE9004FED57 /* JosefinSans-Thin.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		A378B08A2BF22320004FED57 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				A378B0882BF0A733004FED57 /* CardView.swift */,
+				A378B08B2BF2234E004FED57 /* CustomSegmentedControl.swift */,
+				A378B08D2BF2258B004FED57 /* TransaktionCardView.swift */,
+			);
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,6 +472,7 @@
 				A378B02A2BE50AC0004FED57 /* LoginView.swift in Sources */,
 				A378B0732BEC9B61004FED57 /* IntroScreen.swift in Sources */,
 				A378B01F2BE4DE2C004FED57 /* WelcomeView.swift in Sources */,
+				A378B08E2BF2258B004FED57 /* TransaktionCardView.swift in Sources */,
 				A378B0852BEE77DB004FED57 /* ViewExtensions.swift in Sources */,
 				A378B0212BE4DE38004FED57 /* AuthenticationView.swift in Sources */,
 				A378B0752BEC9CC3004FED57 /* Constants.swift in Sources */,
@@ -462,12 +480,14 @@
 				A3259BAD2BE4DC650076A5B8 /* EasySpare_ExpensesApp_App.swift in Sources */,
 				A378B02F2BE54B0B004FED57 /* TextFieldLine.swift in Sources */,
 				A378B0332BE7D142004FED57 /* SignUpView.swift in Sources */,
+				A378B0892BF0A733004FED57 /* CardView.swift in Sources */,
 				A378B07D2BECCF70004FED57 /* TintColor.swift in Sources */,
 				A378B0282BE4E69C004FED57 /* CountryPicker.swift in Sources */,
 				A378B0772BECA1C9004FED57 /* Tab.swift in Sources */,
 				A378B0792BECCE3C004FED57 /* Category.swift in Sources */,
 				A378B0232BE4DE46004FED57 /* CustomButton.swift in Sources */,
 				A378B04E2BE8F473004FED57 /* AuthenticationManager.swift in Sources */,
+				A378B08C2BF2234E004FED57 /* CustomSegmentedControl.swift in Sources */,
 				A378B0352BE8D705004FED57 /* ProfileView.swift in Sources */,
 				A378B02D2BE54967004FED57 /* AuthenticationViewModel.swift in Sources */,
 				A378B0502BE9FD24004FED57 /* ExpensesView.swift in Sources */,

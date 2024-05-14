@@ -35,3 +35,14 @@ struct Transactions: Identifiable {
     }
 }
 
+
+//sample transactions for UI
+
+var sampleTransactions: [Transactions] = [
+    .init(title: "Magic Keyboard", remarks: "Apple Product", amount: 129, dateAdded: .now, category: .expense, tintColor: tints.randomElement()!),
+    .init(title: "Magic Keyboard", remarks: "Apple Product", amount: 129, dateAdded: .now, category: .expense, tintColor: tints.randomElement()!),
+    .init(title: "Magic Keyboard", remarks: "Apple Product", amount: 129, dateAdded: .now, category: .expense, tintColor: tints.randomElement()!),
+    .init(title: "Magic Keyboard", remarks: "Apple Product", amount: 129, dateAdded: .now, category: .expense, tintColor: tints.randomElement()!),
+    .init(title: "Payment", remarks: "Payment Recived!", amount: 129, dateAdded: .now, category: .income, tintColor: tints.randomElement()!),
+    
+]
