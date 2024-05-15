@@ -19,6 +19,7 @@ struct AddTransactionView: View {
     @State private var selectedTintColor: TintColor = tints.first!
 
     var userId: String
+    var onSave: () -> Void
 
     var body: some View {
         NavigationView {
@@ -46,33 +47,33 @@ struct AddTransactionView: View {
                 .padding()
             }
             .navigationTitle("Add Transaction")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        isPresented = false
-                    }
-                }
-            }
         }
     }
     
     func saveTransaction() {
-        // Saving data to Firestore
+        guard let amountValue = Double(amount), !amountValue.isNaN else {
+            print("Invalid amount value")
+            return
+        }
+        
         let transaction = Transactions(
             title: title,
             remarks: remarks,
-            amount: Double(amount) ?? 0,
+            amount: amountValue,
             dateAdded: dateAdded,
             category: category,
             tintColor: selectedTintColor
         )
-        FirestoreManager.shared.saveTransaction(transaction, userId: userId)
-        isPresented = false
+        FirestoreManager.shared.saveTransaction(transaction, userId: userId) {
+            isPresented = false
+            onSave()
+        }
     }
+
 }
 
 struct AddTransactionView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTransactionView(isPresented: .constant(true), userId: "exampleUserId")
+        AddTransactionView(isPresented: .constant(true), userId: "exampleUserId", onSave: {})
     }
 }

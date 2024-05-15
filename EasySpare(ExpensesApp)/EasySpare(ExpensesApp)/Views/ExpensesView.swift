@@ -13,7 +13,10 @@ struct ExpensesView: View {
     @State private var endDate: Date = Date().endMonth
     @State private var showFilterView: Bool = false
     @State private var selectedCategory: Category = .expense
+    @State private var transactions: [Transactions] = []
     @Namespace private var animation
+    
+    var userId: String
     
     var body: some View {
         GeometryReader{ geometry in
@@ -35,7 +38,7 @@ struct ExpensesView: View {
                         })
                         .hSpacing(.leading)
                         
-                        CardView(income: 2039, expense: 4098)
+                        CardView(income: calculateIncome(), expense: calculateExpense())
                         CustomSegmentedControl(selectedCategory: $selectedCategory, namespace: animation)
                         
                         ForEach(sampleTransactions.filter({$0.category == selectedCategory.rawValue })) { transaktion in
@@ -49,12 +52,15 @@ struct ExpensesView: View {
                                 }
                         }
                     } header: {
-                        HeaderView(size: .init(width: UIScreen.main.bounds.width, height: 70))
+                        HeaderView(size: .init(width: UIScreen.main.bounds.width, height: 70), userId: userId, onSave: fetchTransactions)
                     }
                 }
                 .background(.gray.opacity(0.15))
                 .blur(radius: showFilterView ? 8 : 0)
                 .disabled(showFilterView)
+                .onAppear {
+                    fetchTransactions()
+                }
             }
             .overlay{
                     if showFilterView {
@@ -71,8 +77,21 @@ struct ExpensesView: View {
             .animation(.snappy, value: showFilterView)
         }
     }
-}
+    func fetchTransactions() {
+        FirestoreManager.shared.fetchTransactions(userId: userId) { fetchedTransactions in
+            transactions = fetchedTransactions.filter { !$0.amount.isNaN }
+        }
+    }
+
+    func calculateIncome() -> Double {
+         transactions.filter { $0.category == Category.income.rawValue }.reduce(0) { $0 + $1.amount }
+     }
+     
+     func calculateExpense() -> Double {
+         transactions.filter { $0.category == Category.expense.rawValue }.reduce(0) { $0 + $1.amount }
+     }
+ }
 
 #Preview {
-    ExpensesView()
+    ExpensesView(userId: "exampleUserId")
 }

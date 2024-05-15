@@ -14,17 +14,19 @@ struct CardView: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 15)
-                .fill(.background)
+                .fill(Color.gray)
             
             VStack(spacing: 0){
                 HStack(spacing: 12){
                     Text("\(currencyString(income - expense))")
                         .font(.title.bold())
                     
-                    Image(systemName: expense > income ? "chart.line.downtrend.xyaxis" :
-                    "chart.line.uptrend.xyaxis")
-                    .font(.title3)
-                    .foregroundStyle(expense > income ? .red : .green)
+                    let trendImage = expense > income ? "chart.line.downtrend.xyaxis" : "chart.line.uptrend.xyaxis"
+                    let trendColor = expense > income ? Color.red : Color.green
+                                        
+                    Image(systemName: trendImage)
+                            .font(.title3)
+                            .foregroundStyle(trendColor)
                 }
                 .padding(.bottom, 25)
                 

@@ -13,6 +13,7 @@ struct LoginView: View {
     @Environment (\.presentationMode) var mode: Binding<PresentationMode>
     @StateObject var loginVM = AuthenticationViewModel.shared
     @Binding var showSignInView: Bool
+    var onLoginSuccess: (String) -> Void
 
 
     
@@ -76,8 +77,10 @@ struct LoginView: View {
                             Task{
                                 do{
                                     try await loginVM.signIn()
-                                    showSignInView = false
-                                    return
+                                    if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser(){
+                                        showSignInView = false
+                                        onLoginSuccess(authUser.uuid)
+                                    }
                                 }catch{
                                     print(error)
                                 }
@@ -91,7 +94,7 @@ struct LoginView: View {
                                     .font(.system(size: 16))
                                     .foregroundColor(.secondary)
                                 
-                                NavigationLink(destination: SignUpView(showSignInView: $showSignInView)) {
+                                NavigationLink(destination: SignUpView(showSignInView: $showSignInView, onSignUpSuccess: {_ in})) {
                                     
                                 Text("Sign Up")
                                     .font(.system(size: 16))
@@ -142,6 +145,6 @@ struct LoginView: View {
 
 #Preview {
     NavigationStack{
-       LoginView(showSignInView: .constant(false))
+        LoginView(showSignInView: .constant(false), onLoginSuccess: { _ in })
     }
 }

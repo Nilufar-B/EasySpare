@@ -4,7 +4,7 @@
 //
 //  Created by Nilufar Bakhridinova on 2024-05-03.
 //
-
+/*
 import Foundation
 import SwiftUI
 import CountryPicker
@@ -141,3 +141,4 @@ struct AuthenticationView: View{
 #Preview {
     AuthenticationView(showSgnInView: .constant(false))
 }
+*/

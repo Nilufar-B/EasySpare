@@ -12,7 +12,7 @@ class FirestoreManager {
     static let shared = FirestoreManager()
     private let db = Firestore.firestore()
     
-    func saveTransaction(_ transaction: Transactions, userId: String) {
+    func saveTransaction(_ transaction: Transactions, userId: String, completion: @escaping () -> Void) {
             db.collection("users").document(userId).collection("expenses").addDocument(data: [
                 "title": transaction.title,
                 "remarks": transaction.remarks,
@@ -24,6 +24,7 @@ class FirestoreManager {
                 if let error = error {
                     print("Error saving transaction: \(error.localizedDescription)")
                 }
+                completion()
             }
         }
     

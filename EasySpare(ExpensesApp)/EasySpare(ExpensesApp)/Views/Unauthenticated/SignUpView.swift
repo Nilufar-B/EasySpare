@@ -13,6 +13,8 @@ struct SignUpView: View {
     @StateObject var loginVM = AuthenticationViewModel.shared  
     @State private var isRegistrationSuccess = false
     @Binding var showSignInView: Bool
+    
+    var onSignUpSuccess: (String) -> Void
 
     var body: some View {
         GeometryReader{ geometry in
@@ -54,7 +56,11 @@ struct SignUpView: View {
                             Task{
                                 do{
                                     try await loginVM.signUp()
-                                    showSignInView = false
+                                    if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser(){
+                                        showSignInView = false
+                                        onSignUpSuccess(authUser.uuid)
+                                    }
+                                   
                                     return
                                 }catch{
                                     print(error)
@@ -70,7 +76,9 @@ struct SignUpView: View {
                                 .font(.system(size: 16))
                                 .foregroundColor(.secondary)
                             
-                            NavigationLink(destination: LoginView(showSignInView: $showSignInView)) {
+                            NavigationLink(destination: LoginView(showSignInView: $showSignInView, onLoginSuccess: { _ in
+                                mode.wrappedValue.dismiss()
+                            })) {
                                 
                                 Text("Log In")
                                     .font(.system(size: 16))
@@ -119,6 +127,6 @@ struct SignUpView: View {
 }
 
 #Preview {
-SignUpView(showSignInView: .constant(true))
+    SignUpView(showSignInView: .constant(true), onSignUpSuccess: { _ in })
     
 }

@@ -10,6 +10,8 @@ import SwiftUI
 struct HeaderView: View {
     @AppStorage("userName") private var userName: String = ""
     var size: CGSize
+    var userId: String
+    var onSave: () -> Void
 
     var body: some View {
             HStack(spacing: 10){
@@ -33,7 +35,7 @@ struct HeaderView: View {
                 Spacer(minLength: 0)
                 
                 NavigationLink{
-                    
+                    AddTransactionView(isPresented: .constant(true), userId: userId, onSave: onSave)
                 } label: {
                     Image(systemName: "plus")
                         .font(.title3)

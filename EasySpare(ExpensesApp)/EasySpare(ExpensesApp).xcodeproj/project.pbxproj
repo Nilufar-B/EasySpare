@@ -14,7 +14,6 @@
 		A3259BBE2BE4DC670076A5B8 /* EasySpare_ExpensesApp_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3259BBD2BE4DC670076A5B8 /* EasySpare_ExpensesApp_Tests.swift */; };
 		A3259BC82BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3259BC72BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift */; };
 		A3259BCA2BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3259BC92BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift */; };
-		A378B01F2BE4DE2C004FED57 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B01E2BE4DE2C004FED57 /* WelcomeView.swift */; };
 		A378B0212BE4DE38004FED57 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0202BE4DE38004FED57 /* AuthenticationView.swift */; };
 		A378B0232BE4DE46004FED57 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0222BE4DE46004FED57 /* CustomButton.swift */; };
 		A378B0262BE4E643004FED57 /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = A378B0252BE4E643004FED57 /* CountryPicker */; };
@@ -92,7 +91,6 @@
 		A3259BC32BE4DC670076A5B8 /* EasySpare(ExpensesApp)UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EasySpare(ExpensesApp)UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3259BC72BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySpare_ExpensesApp_UITests.swift; sourceTree = "<group>"; };
 		A3259BC92BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySpare_ExpensesApp_UITestsLaunchTests.swift; sourceTree = "<group>"; };
-		A378B01E2BE4DE2C004FED57 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		A378B0202BE4DE38004FED57 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		A378B0222BE4DE46004FED57 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A378B0272BE4E69C004FED57 /* CountryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPicker.swift; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 			isa = PBXGroup;
 			children = (
 				A378B0722BEC9B61004FED57 /* IntroScreen.swift */,
-				A378B01E2BE4DE2C004FED57 /* WelcomeView.swift */,
 				A378B0202BE4DE38004FED57 /* AuthenticationView.swift */,
 				A378B0292BE50AC0004FED57 /* LoginView.swift */,
 				A378B0322BE7D142004FED57 /* SignUpView.swift */,
@@ -495,7 +492,6 @@
 				A378B0812BEE71EB004FED57 /* GraphView.swift in Sources */,
 				A378B02A2BE50AC0004FED57 /* LoginView.swift in Sources */,
 				A378B0732BEC9B61004FED57 /* IntroScreen.swift in Sources */,
-				A378B01F2BE4DE2C004FED57 /* WelcomeView.swift in Sources */,
 				A378B08E2BF2258B004FED57 /* TransaktionCardView.swift in Sources */,
 				A378B0962BF3E3D9004FED57 /* UserProfile.swift in Sources */,
 				A378B0852BEE77DB004FED57 /* ViewExtensions.swift in Sources */,
