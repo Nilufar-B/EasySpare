@@ -57,6 +57,11 @@
 		A378B0892BF0A733004FED57 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0882BF0A733004FED57 /* CardView.swift */; };
 		A378B08C2BF2234E004FED57 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B08B2BF2234E004FED57 /* CustomSegmentedControl.swift */; };
 		A378B08E2BF2258B004FED57 /* TransaktionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B08D2BF2258B004FED57 /* TransaktionCardView.swift */; };
+		A378B0942BF36640004FED57 /* DateFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0932BF36640004FED57 /* DateFilterView.swift */; };
+		A378B0962BF3E3D9004FED57 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0952BF3E3D9004FED57 /* UserProfile.swift */; };
+		A378B0982BF3E426004FED57 /* DBconnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0972BF3E426004FED57 /* DBconnections.swift */; };
+		A378B09A2BF3E6BD004FED57 /* AddTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0992BF3E6BD004FED57 /* AddTransactionsView.swift */; };
+		A378B09D2BF3E758004FED57 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B09C2BF3E758004FED57 /* FirestoreManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +125,11 @@
 		A378B0882BF0A733004FED57 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		A378B08B2BF2234E004FED57 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		A378B08D2BF2258B004FED57 /* TransaktionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransaktionCardView.swift; sourceTree = "<group>"; };
+		A378B0932BF36640004FED57 /* DateFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterView.swift; sourceTree = "<group>"; };
+		A378B0952BF3E3D9004FED57 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		A378B0972BF3E426004FED57 /* DBconnections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBconnections.swift; sourceTree = "<group>"; };
+		A378B0992BF3E6BD004FED57 /* AddTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionsView.swift; sourceTree = "<group>"; };
+		A378B09C2BF3E758004FED57 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +275,7 @@
 				A378B0342BE8D705004FED57 /* ProfileView.swift */,
 				A378B0822BEE7297004FED57 /* SettingsView.swift */,
 				A378B0862BEE7DCB004FED57 /* HeaderView.swift */,
+				A378B0992BF3E6BD004FED57 /* AddTransactionsView.swift */,
 			);
 			path = Authenticated;
 			sourceTree = "<group>";
@@ -280,10 +291,12 @@
 		A378B0532BEBACF1004FED57 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A378B09B2BF3E725004FED57 /* Database */,
 				A378B0762BECA1C9004FED57 /* Tab.swift */,
 				A378B0782BECCE3C004FED57 /* Category.swift */,
 				A378B07A2BECCEC4004FED57 /* Transactions.swift */,
 				A378B07C2BECCF70004FED57 /* TintColor.swift */,
+				A378B0952BF3E3D9004FED57 /* UserProfile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,8 +320,18 @@
 				A378B0882BF0A733004FED57 /* CardView.swift */,
 				A378B08B2BF2234E004FED57 /* CustomSegmentedControl.swift */,
 				A378B08D2BF2258B004FED57 /* TransaktionCardView.swift */,
+				A378B0932BF36640004FED57 /* DateFilterView.swift */,
 			);
 			path = ViewComponents;
+			sourceTree = "<group>";
+		};
+		A378B09B2BF3E725004FED57 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				A378B0972BF3E426004FED57 /* DBconnections.swift */,
+				A378B09C2BF3E758004FED57 /* FirestoreManager.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -468,11 +491,13 @@
 				A378B07F2BEE71DC004FED57 /* SearchView.swift in Sources */,
 				A3259BAF2BE4DC650076A5B8 /* ContentView.swift in Sources */,
 				A378B0872BEE7DCB004FED57 /* HeaderView.swift in Sources */,
+				A378B0982BF3E426004FED57 /* DBconnections.swift in Sources */,
 				A378B0812BEE71EB004FED57 /* GraphView.swift in Sources */,
 				A378B02A2BE50AC0004FED57 /* LoginView.swift in Sources */,
 				A378B0732BEC9B61004FED57 /* IntroScreen.swift in Sources */,
 				A378B01F2BE4DE2C004FED57 /* WelcomeView.swift in Sources */,
 				A378B08E2BF2258B004FED57 /* TransaktionCardView.swift in Sources */,
+				A378B0962BF3E3D9004FED57 /* UserProfile.swift in Sources */,
 				A378B0852BEE77DB004FED57 /* ViewExtensions.swift in Sources */,
 				A378B0212BE4DE38004FED57 /* AuthenticationView.swift in Sources */,
 				A378B0752BEC9CC3004FED57 /* Constants.swift in Sources */,
@@ -480,6 +505,7 @@
 				A3259BAD2BE4DC650076A5B8 /* EasySpare_ExpensesApp_App.swift in Sources */,
 				A378B02F2BE54B0B004FED57 /* TextFieldLine.swift in Sources */,
 				A378B0332BE7D142004FED57 /* SignUpView.swift in Sources */,
+				A378B09A2BF3E6BD004FED57 /* AddTransactionsView.swift in Sources */,
 				A378B0892BF0A733004FED57 /* CardView.swift in Sources */,
 				A378B07D2BECCF70004FED57 /* TintColor.swift in Sources */,
 				A378B0282BE4E69C004FED57 /* CountryPicker.swift in Sources */,
@@ -487,11 +513,13 @@
 				A378B0792BECCE3C004FED57 /* Category.swift in Sources */,
 				A378B0232BE4DE46004FED57 /* CustomButton.swift in Sources */,
 				A378B04E2BE8F473004FED57 /* AuthenticationManager.swift in Sources */,
+				A378B0942BF36640004FED57 /* DateFilterView.swift in Sources */,
 				A378B08C2BF2234E004FED57 /* CustomSegmentedControl.swift in Sources */,
 				A378B0352BE8D705004FED57 /* ProfileView.swift in Sources */,
 				A378B02D2BE54967004FED57 /* AuthenticationViewModel.swift in Sources */,
 				A378B0502BE9FD24004FED57 /* ExpensesView.swift in Sources */,
 				A378B0832BEE7297004FED57 /* SettingsView.swift in Sources */,
+				A378B09D2BF3E758004FED57 /* FirestoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

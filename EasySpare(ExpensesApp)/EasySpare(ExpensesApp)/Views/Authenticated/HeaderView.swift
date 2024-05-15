@@ -19,10 +19,12 @@ struct HeaderView: View {
                     
                     if !userName.isEmpty {
                         Text(userName)
-                            .font(.callout)
+                            .font(.caption2)
                             .foregroundStyle(.gray)
                     }
+                       
                 })
+                .padding(.bottom, 8)
                 .visualEffect { content, geometryProxy in
                     content
                         .scaleEffect(headerScale( size, proxy: geometryProxy), anchor: .topLeading)

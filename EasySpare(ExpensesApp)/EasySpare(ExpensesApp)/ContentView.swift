@@ -55,7 +55,7 @@ struct ContentView: View {
                              .tabItem { Tab.search.tabContent }.tag(Tab.search)
                      GraphView()
                              .tabItem { Tab.charts.tabContent }.tag(Tab.charts)
-                     SettingsView()
+                     SettingsView(showSignInView: $showSignInView)
                              .tabItem { Tab.settings.tabContent }.tag(Tab.settings)
                      }
                      .tint(appTint)
