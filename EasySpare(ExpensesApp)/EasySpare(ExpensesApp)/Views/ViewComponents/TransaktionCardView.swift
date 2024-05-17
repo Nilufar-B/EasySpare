@@ -43,7 +43,3 @@ struct TransaktionCardView: View {
         .background(.background, in: .rect(cornerRadius: 10))
     }
 }
-
-#Preview {
-    TransaktionCardView(transaktion: sampleTransactions[0])
-}

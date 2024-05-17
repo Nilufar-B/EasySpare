@@ -8,6 +8,8 @@
 import SwiftUI
 import Firebase
 
+import SwiftUI
+import Firebase
 
 struct AddTransactionView: View {
     @Binding var isPresented: Bool
@@ -20,6 +22,12 @@ struct AddTransactionView: View {
 
     var userId: String
     var onSave: () -> Void
+
+    public init(isPresented: Binding<Bool>, userId: String, onSave: @escaping () -> Void) {
+        self._isPresented = isPresented
+        self.userId = userId
+        self.onSave = onSave
+    }
 
     var body: some View {
         NavigationView {
@@ -62,14 +70,13 @@ struct AddTransactionView: View {
             amount: amountValue,
             dateAdded: dateAdded,
             category: category,
-            tintColor: selectedTintColor
+            tintColor: selectedTintColor.color
         )
         FirestoreManager.shared.saveTransaction(transaction, userId: userId) {
             isPresented = false
             onSave()
         }
     }
-
 }
 
 struct AddTransactionView_Previews: PreviewProvider {

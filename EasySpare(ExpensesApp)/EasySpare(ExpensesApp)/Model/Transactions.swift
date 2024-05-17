@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct Transactions: Identifiable {
-    let id: UUID = .init()
+    let id: String
     
     var title: String
     var remarks: String
     var amount: Double
     var dateAdded: Date
-    var category: String
+    var category: Category
     var tintColor: String // use it to dive a random color to each transaction view
     
-    init(title: String, remarks: String, amount: Double, dateAdded: Date, category: Category, tintColor: TintColor) {
+    init(id: String = UUID().uuidString, title: String, remarks: String, amount: Double, dateAdded: Date, category: Category, tintColor: String) {
+        self.id = id
         self.title = title
         self.remarks = remarks
         self.amount = amount
         self.dateAdded = dateAdded
-        self.category = category.rawValue
-        self.tintColor = tintColor.color
+        self.category = category
+        self.tintColor = tintColor
     }
     
     //Extracting Color value from tintColor String
@@ -36,13 +37,3 @@ struct Transactions: Identifiable {
 }
 
 
-//sample transactions for UI
-
-var sampleTransactions: [Transactions] = [
-    .init(title: "Magic Keyboard", remarks: "Apple Product", amount: 129, dateAdded: .now, category: .expense, tintColor: tints.randomElement()!),
-    .init(title: "Magic Keyboard", remarks: "Apple Product", amount: 129, dateAdded: .now, category: .expense, tintColor: tints.randomElement()!),
-    .init(title: "Magic Keyboard", remarks: "Apple Product", amount: 129, dateAdded: .now, category: .expense, tintColor: tints.randomElement()!),
-    .init(title: "Magic Keyboard", remarks: "Apple Product", amount: 129, dateAdded: .now, category: .expense, tintColor: tints.randomElement()!),
-    .init(title: "Payment", remarks: "Payment Recived!", amount: 129, dateAdded: .now, category: .income, tintColor: tints.randomElement()!),
-    
-]

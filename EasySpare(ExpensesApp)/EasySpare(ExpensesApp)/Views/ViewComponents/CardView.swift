@@ -14,7 +14,7 @@ struct CardView: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 15)
-                .fill(Color.gray)
+                .fill(Color.white)
             
             VStack(spacing: 0){
                 HStack(spacing: 12){

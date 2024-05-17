@@ -21,11 +21,12 @@ struct SettingsView: View {
                     Section("User Name") {
                         TextField("iName", text: $userName)
                     }
+                    /*
                     Section("Planned Expenses") {
                         TextField("Planned Expenses", value: $plannedExpenses, format: .number)
                                      .keyboardType(.decimalPad)
                     }
-                    
+                    */
                 }
                 .navigationTitle("Settings")
                 

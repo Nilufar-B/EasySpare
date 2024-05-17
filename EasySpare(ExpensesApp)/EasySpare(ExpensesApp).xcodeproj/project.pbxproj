@@ -22,7 +22,6 @@
 		A378B02D2BE54967004FED57 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B02C2BE54967004FED57 /* AuthenticationViewModel.swift */; };
 		A378B02F2BE54B0B004FED57 /* TextFieldLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B02E2BE54B0B004FED57 /* TextFieldLine.swift */; };
 		A378B0332BE7D142004FED57 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0322BE7D142004FED57 /* SignUpView.swift */; };
-		A378B0352BE8D705004FED57 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0342BE8D705004FED57 /* ProfileView.swift */; };
 		A378B0372BE8DEB7004FED57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A378B0362BE8DEB7004FED57 /* GoogleService-Info.plist */; };
 		A378B03A2BE8E006004FED57 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A378B0392BE8E006004FED57 /* FirebaseAnalytics */; };
 		A378B03C2BE8E006004FED57 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A378B03B2BE8E006004FED57 /* FirebaseAnalyticsSwift */; };
@@ -98,7 +97,6 @@
 		A378B02C2BE54967004FED57 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		A378B02E2BE54B0B004FED57 /* TextFieldLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldLine.swift; sourceTree = "<group>"; };
 		A378B0322BE7D142004FED57 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		A378B0342BE8D705004FED57 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = "EasySpare(ExpensesApp)/Views/Unauthenticated/ProfileView.swift"; sourceTree = SOURCE_ROOT; };
 		A378B0362BE8DEB7004FED57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A378B04D2BE8F473004FED57 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		A378B04F2BE9FD24004FED57 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpensesView.swift; path = "EasySpare(ExpensesApp)/Views/ExpensesView.swift"; sourceTree = SOURCE_ROOT; };
@@ -269,7 +267,6 @@
 				A378B04F2BE9FD24004FED57 /* ExpensesView.swift */,
 				A378B07E2BEE71DC004FED57 /* SearchView.swift */,
 				A378B0802BEE71EB004FED57 /* GraphView.swift */,
-				A378B0342BE8D705004FED57 /* ProfileView.swift */,
 				A378B0822BEE7297004FED57 /* SettingsView.swift */,
 				A378B0862BEE7DCB004FED57 /* HeaderView.swift */,
 				A378B0992BF3E6BD004FED57 /* AddTransactionsView.swift */,
@@ -511,7 +508,6 @@
 				A378B04E2BE8F473004FED57 /* AuthenticationManager.swift in Sources */,
 				A378B0942BF36640004FED57 /* DateFilterView.swift in Sources */,
 				A378B08C2BF2234E004FED57 /* CustomSegmentedControl.swift in Sources */,
-				A378B0352BE8D705004FED57 /* ProfileView.swift in Sources */,
 				A378B02D2BE54967004FED57 /* AuthenticationViewModel.swift in Sources */,
 				A378B0502BE9FD24004FED57 /* ExpensesView.swift in Sources */,
 				A378B0832BEE7297004FED57 /* SettingsView.swift in Sources */,
