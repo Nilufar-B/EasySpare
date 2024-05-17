@@ -6,13 +6,52 @@
 //
 
 import SwiftUI
+import Charts
 
 struct GraphView: View {
+    @StateObject private var transactionManager = TransactionManager()
+    @State private var selectedInterval: CustomTimeInterval = .week
+    @State private var selectedDate: Date = Date()
+
+    var userId: String
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Picker("Time Interval", selection: $selectedInterval) {
+                ForEach(CustomTimeInterval.allCases, id: \.self) { interval in
+                    Text(interval.rawValue).tag(interval)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+
+            Chart {
+                ForEach(transactionManager.processTransactions(for: selectedInterval, selectedDate: selectedDate), id: \.id) { transaction in
+                    BarMark(
+                        x: .value("Day", transactionManager.weekdayName(from: transaction.dateAdded)),
+                        y: .value("Amount", transaction.amount)
+                    )
+                    .foregroundStyle(by: .value("Category", transaction.category.rawValue))
+                }
+            }
+            .padding()
+
+            Spacer()
+        }
+        .onAppear {
+            transactionManager.fetchTransactions(userId: userId) {}
+        }
+        .onChange(of: selectedInterval, initial: true) { _, newInterval in
+            transactionManager.fetchTransactions(userId: userId) {}
+               }
+               .onChange(of: selectedDate, initial: true) { _, newDate in
+                   transactionManager.fetchTransactions(userId: userId) {}
+               }
     }
 }
 
-#Preview {
-    GraphView()
+struct GraphView_Previews: PreviewProvider {
+    static var previews: some View {
+        GraphView(userId: "exampleUserId")
+    }
 }

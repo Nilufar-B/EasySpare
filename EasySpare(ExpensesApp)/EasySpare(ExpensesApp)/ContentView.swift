@@ -35,7 +35,7 @@ struct ContentView: View {
                          .tabItem { Tab.expenses.tabContent }.tag(Tab.expenses)
                      SearchView()
                              .tabItem { Tab.search.tabContent }.tag(Tab.search)
-                     GraphView()
+                     GraphView(userId: userId)
                              .tabItem { Tab.charts.tabContent }.tag(Tab.charts)
                      SettingsView(showSignInView: $showSignInView)
                              .tabItem { Tab.settings.tabContent }.tag(Tab.settings)

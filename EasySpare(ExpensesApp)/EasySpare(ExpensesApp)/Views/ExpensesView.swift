@@ -4,16 +4,17 @@
 //
 //  Created by Nilufar Bakhridinova on 2024-05-07.
 //
+
 import SwiftUI
 
 struct ExpensesView: View {
     @AppStorage("userName") private var userName: String = ""
+    @StateObject private var transactionManager = TransactionManager()
     
     @State private var startDate: Date = Date().startMonth
     @State private var endDate: Date = Date().endMonth
     @State private var showFilterView: Bool = false
     @State private var selectedCategory: Category = .expense
-    @State private var transactions: [Transactions] = []
     @Namespace private var animation
     
     var userId: String
@@ -25,7 +26,7 @@ struct ExpensesView: View {
                     Section {
                         Button(action: {
                             showFilterView = true
-                        }) {
+                        }, label: {
                             HStack {
                                 Text("\(startDate.format(date: startDate, format: "dd - MMM yy")) to")
                                     .font(.caption2)
@@ -34,31 +35,33 @@ struct ExpensesView: View {
                                     .font(.caption2)
                                     .foregroundStyle(.gray)
                             }
-                        }
+                        })
                         .hSpacing(.leading)
                         
-                        CardView(income: calculateIncome(), expense: calculateExpense())
+                        CardView(income: transactionManager.calculateIncome(), expense: transactionManager.calculateExpense())
                         CustomSegmentedControl(selectedCategory: $selectedCategory, namespace: animation)
                         
-                        ForEach(transactions.filter { $0.category.rawValue == selectedCategory.rawValue }) { transaction in
-                            TransaktionCardView(transaktion: transaction)
+                        ForEach(transactionManager.transactions.filter({ $0.category.rawValue == selectedCategory.rawValue })) { transaktion in
+                            TransaktionCardView(transaktion: transaktion)
                                 .swipeActions {
                                     Button(role: .destructive) {
-                                        deleteTransaction(transaction: transaction)
+                                        transactionManager.deleteTransaction(userId: userId, transaction: transaktion)
                                     } label: {
                                         Label("Delete", systemImage: "trash")
                                     }
                                 }
                         }
                     } header: {
-                        HeaderView(size: .init(width: UIScreen.main.bounds.width, height: 70), userId: userId, onSave: fetchTransactions)
+                        HeaderView(size: .init(width: UIScreen.main.bounds.width, height: 70), userId: userId, onSave: {
+                            transactionManager.fetchTransactions(userId: userId) {}
+                        })
                     }
                 }
                 .background(.gray.opacity(0.15))
                 .blur(radius: showFilterView ? 8 : 0)
                 .disabled(showFilterView)
                 .onAppear {
-                    fetchTransactions()
+                    transactionManager.fetchTransactions(userId: userId) {}
                 }
             }
             .overlay {
@@ -76,35 +79,9 @@ struct ExpensesView: View {
             .animation(.snappy, value: showFilterView)
         }
     }
-
-    func fetchTransactions() {
-        FirestoreManager.shared.fetchTransactions(userId: userId) { fetchedTransactions in
-            transactions = fetchedTransactions.filter { !$0.amount.isNaN }
-        }
-    }
-
-    func calculateIncome() -> Double {
-        transactions.filter { $0.category.rawValue == Category.income.rawValue }.reduce(0) { $0 + $1.amount }
-    }
-    
-    func calculateExpense() -> Double {
-        transactions.filter { $0.category.rawValue == Category.expense.rawValue }.reduce(0) { $0 + $1.amount }
-    }
-
-    func deleteTransaction(transaction: Transactions) {
-        FirestoreManager.shared.deleteTransaction(userId: userId, transactionId: transaction.id) { error in
-            if let error = error {
-                print("Error deleting transaction: \(error.localizedDescription)")
-            } else {
-                // Remove the transaction from the local list
-                transactions.removeAll { $0.id == transaction.id }
-            }
-        }
-    }
 }
 
-struct ExpensesView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExpensesView(userId: "exampleUserId")
-    }
+#Preview {
+    ExpensesView(userId: "exampleUserId")
 }
+

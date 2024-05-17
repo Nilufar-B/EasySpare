@@ -14,6 +14,8 @@
 		A3259BBE2BE4DC670076A5B8 /* EasySpare_ExpensesApp_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3259BBD2BE4DC670076A5B8 /* EasySpare_ExpensesApp_Tests.swift */; };
 		A3259BC82BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3259BC72BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift */; };
 		A3259BCA2BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3259BC92BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift */; };
+		A334B83C2BF7E03D00B89ED0 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334B83B2BF7E03D00B89ED0 /* TransactionManager.swift */; };
+		A334B83E2BF7E2B000B89ED0 /* CustomTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = A334B83D2BF7E2B000B89ED0 /* CustomTimeInterval.swift */; };
 		A378B0212BE4DE38004FED57 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0202BE4DE38004FED57 /* AuthenticationView.swift */; };
 		A378B0232BE4DE46004FED57 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A378B0222BE4DE46004FED57 /* CustomButton.swift */; };
 		A378B0262BE4E643004FED57 /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = A378B0252BE4E643004FED57 /* CountryPicker */; };
@@ -90,6 +92,8 @@
 		A3259BC32BE4DC670076A5B8 /* EasySpare(ExpensesApp)UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EasySpare(ExpensesApp)UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3259BC72BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySpare_ExpensesApp_UITests.swift; sourceTree = "<group>"; };
 		A3259BC92BE4DC670076A5B8 /* EasySpare_ExpensesApp_UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySpare_ExpensesApp_UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A334B83B2BF7E03D00B89ED0 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
+		A334B83D2BF7E2B000B89ED0 /* CustomTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimeInterval.swift; sourceTree = "<group>"; };
 		A378B0202BE4DE38004FED57 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		A378B0222BE4DE46004FED57 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A378B0272BE4E69C004FED57 /* CountryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPicker.swift; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				A378B02C2BE54967004FED57 /* AuthenticationViewModel.swift */,
+				A334B83B2BF7E03D00B89ED0 /* TransactionManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 			children = (
 				A378B0972BF3E426004FED57 /* DBconnections.swift */,
 				A378B09C2BF3E758004FED57 /* FirestoreManager.swift */,
+				A334B83D2BF7E2B000B89ED0 /* CustomTimeInterval.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -484,6 +490,7 @@
 			files = (
 				A378B07F2BEE71DC004FED57 /* SearchView.swift in Sources */,
 				A3259BAF2BE4DC650076A5B8 /* ContentView.swift in Sources */,
+				A334B83E2BF7E2B000B89ED0 /* CustomTimeInterval.swift in Sources */,
 				A378B0872BEE7DCB004FED57 /* HeaderView.swift in Sources */,
 				A378B0982BF3E426004FED57 /* DBconnections.swift in Sources */,
 				A378B0812BEE71EB004FED57 /* GraphView.swift in Sources */,
@@ -509,6 +516,7 @@
 				A378B0942BF36640004FED57 /* DateFilterView.swift in Sources */,
 				A378B08C2BF2234E004FED57 /* CustomSegmentedControl.swift in Sources */,
 				A378B02D2BE54967004FED57 /* AuthenticationViewModel.swift in Sources */,
+				A334B83C2BF7E03D00B89ED0 /* TransactionManager.swift in Sources */,
 				A378B0502BE9FD24004FED57 /* ExpensesView.swift in Sources */,
 				A378B0832BEE7297004FED57 /* SettingsView.swift in Sources */,
 				A378B09D2BF3E758004FED57 /* FirestoreManager.swift in Sources */,
