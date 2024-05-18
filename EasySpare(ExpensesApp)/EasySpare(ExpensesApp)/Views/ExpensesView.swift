@@ -1,4 +1,3 @@
-//
 //  ExpensesView.swift
 //  EasySpare(ExpensesApp)
 //
@@ -26,7 +25,7 @@ struct ExpensesView: View {
                     Section {
                         Button(action: {
                             showFilterView = true
-                        }, label: {
+                        }) {
                             HStack {
                                 Text("\(startDate.format(date: startDate, format: "dd - MMM yy")) to")
                                     .font(.caption2)
@@ -35,7 +34,7 @@ struct ExpensesView: View {
                                     .font(.caption2)
                                     .foregroundStyle(.gray)
                             }
-                        })
+                        }
                         .hSpacing(.leading)
                         
                         CardView(income: transactionManager.calculateIncome(), expense: transactionManager.calculateExpense())
@@ -81,7 +80,8 @@ struct ExpensesView: View {
     }
 }
 
-#Preview {
-    ExpensesView(userId: "exampleUserId")
+struct ExpensesView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExpensesView(userId: "exampleUserId")
+    }
 }
-

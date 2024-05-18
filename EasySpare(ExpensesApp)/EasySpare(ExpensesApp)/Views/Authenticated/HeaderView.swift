@@ -1,11 +1,9 @@
-//
-//  SwiftUIView.swift
+//  HeaderView.swift
 //  EasySpare(ExpensesApp)
 //
 //  Created by Nilufar Bakhridinova on 2024-05-10.
 //
 
-import SwiftUI
 import SwiftUI
 
 struct HeaderView: View {
@@ -13,6 +11,7 @@ struct HeaderView: View {
     var size: CGSize
     var userId: String
     var onSave: () -> Void
+    @State private var isAddTransactionPresented = false
 
     var body: some View {
         HStack(spacing: 10) {
@@ -34,9 +33,9 @@ struct HeaderView: View {
             
             Spacer(minLength: 0)
             
-            NavigationLink {
-                AddTransactionView(isPresented: .constant(true), userId: userId, onSave: onSave)
-            } label: {
+            Button(action: {
+                isAddTransactionPresented = true
+            }) {
                 Image(systemName: "plus")
                     .font(.title3)
                     .fontWeight(.semibold)
@@ -45,18 +44,18 @@ struct HeaderView: View {
                     .background(appTint.gradient, in: .circle)
                     .contentShape(.circle)
             }
+            .sheet(isPresented: $isAddTransactionPresented) {
+                AddTransactionView(isPresented: $isAddTransactionPresented, userId: userId, onSave: onSave)
+            }
         }
         .padding(.bottom, userName.isEmpty ? 10 : 5)
         .background {
             VStack(spacing: 0) {
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                
+                Rectangle().fill(.ultraThinMaterial)
                 Divider()
             }
             .visualEffect { content, geometryProxy in
-                content
-                    .opacity(headerOpacity(geometryProxy))
+                content.opacity(headerOpacity(geometryProxy))
             }
             .padding(.horizontal, -15)
             .padding(.top, -(safeArea.top + 15))

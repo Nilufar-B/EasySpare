@@ -1,12 +1,8 @@
-//
 //  AddTransactionsView.swift
 //  EasySpare(ExpensesApp)
 //
 //  Created by Nilufar Bakhridinova on 2024-05-14.
 //
-
-import SwiftUI
-import Firebase
 
 import SwiftUI
 import Firebase
@@ -23,7 +19,7 @@ struct AddTransactionView: View {
     var userId: String
     var onSave: () -> Void
 
-    public init(isPresented: Binding<Bool>, userId: String, onSave: @escaping () -> Void) {
+    init(isPresented: Binding<Bool>, userId: String, onSave: @escaping () -> Void) {
         self._isPresented = isPresented
         self.userId = userId
         self.onSave = onSave
@@ -33,6 +29,7 @@ struct AddTransactionView: View {
         NavigationView {
             VStack {
                 Form {
+                    
                     TextField("Title", text: $title)
                     TextField("Remarks", text: $remarks)
                     TextField("Amount", text: $amount)
@@ -55,14 +52,15 @@ struct AddTransactionView: View {
                 .padding()
             }
             .navigationTitle("Add Transaction")
+            .font(.caption2)
         }
     }
     
     func saveTransaction() {
-        guard let amountValue = Double(amount), !amountValue.isNaN else {
-            print("Invalid amount value")
-            return
-        }
+           guard let amountValue = Double(amount), !amountValue.isNaN else {
+               print("Invalid amount value")
+               return
+           }
         
         let transaction = Transactions(
             title: title,
@@ -73,8 +71,8 @@ struct AddTransactionView: View {
             tintColor: selectedTintColor.color
         )
         FirestoreManager.shared.saveTransaction(transaction, userId: userId) {
-            isPresented = false
             onSave()
+            isPresented = false 
         }
     }
 }
