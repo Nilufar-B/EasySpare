@@ -1,10 +1,3 @@
-//
-//  TransactionManager.swift
-//  EasySpare(ExpensesApp)
-//
-//  Created by Nilufar Bakhridinova on 2024-05-17.
-//
-
 import Foundation
 import FirebaseFirestore
 
@@ -14,7 +7,9 @@ class TransactionManager: ObservableObject {
     func fetchTransactions(userId: String, completion: @escaping () -> Void) {
         FirestoreManager.shared.fetchTransactions(userId: userId) { fetchedTransactions in
             DispatchQueue.main.async {
-                self.transactions = fetchedTransactions.filter { !$0.amount.isNaN }
+                self.transactions = fetchedTransactions
+                    .filter { !$0.amount.isNaN }
+                    .sorted { $0.dateAdded > $1.dateAdded } // Sort by date in descending order
                 completion()
             }
         }
