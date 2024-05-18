@@ -14,6 +14,7 @@ struct AddTransactionView: View {
     @State private var amount: String = ""
     @State private var dateAdded: Date = Date()
     @State private var category: Category = .expense
+    @State private var expenseCategory: ExpenseCategory = .others
     @State private var selectedTintColor: TintColor = tints.first!
 
     var userId: String
@@ -31,7 +32,7 @@ struct AddTransactionView: View {
                 Form {
                     
                     TextField("Title", text: $title)
-                    TextField("Remarks", text: $remarks)
+                        .autocorrectionDisabled()
                     TextField("Amount", text: $amount)
                         .keyboardType(.decimalPad)
                     DatePicker("Date", selection: $dateAdded, displayedComponents: .date)
@@ -40,9 +41,16 @@ struct AddTransactionView: View {
                             Text(category.rawValue).tag(category)
                         }
                     }
+                    Picker("Expense Category", selection: $expenseCategory) {
+                        ForEach(ExpenseCategory.allCases) { category in
+                            Text(category.rawValue).tag(category)
+                                .font(.callout)
+                        }
+                    }
                     Picker("Color", selection: $selectedTintColor) {
                         ForEach(tints, id: \.id) { tintColor in
                             Text(tintColor.color).tag(tintColor)
+                            
                         }
                     }
                 }
@@ -52,7 +60,7 @@ struct AddTransactionView: View {
                 .padding()
             }
             .navigationTitle("Add Transaction")
-            .font(.caption2)
+            .fontWeight(.regular)
         }
     }
     
@@ -64,7 +72,7 @@ struct AddTransactionView: View {
         
         let transaction = Transactions(
             title: title,
-            remarks: remarks,
+            remarks: expenseCategory.rawValue,
             amount: amountValue,
             dateAdded: dateAdded,
             category: category,

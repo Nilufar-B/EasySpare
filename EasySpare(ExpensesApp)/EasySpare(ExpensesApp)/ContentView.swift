@@ -33,8 +33,8 @@ struct ContentView: View {
                      TabView(selection: $activeTab) {
                          ExpensesView(userId: userId)
                          .tabItem { Tab.expenses.tabContent }.tag(Tab.expenses)
-                     SearchView()
-                             .tabItem { Tab.search.tabContent }.tag(Tab.search)
+                    // SearchView()
+                            // .tabItem { Tab.search.tabContent }.tag(Tab.search)
                      GraphView(userId: userId)
                              .tabItem { Tab.charts.tabContent }.tag(Tab.charts)
                      SettingsView(showSignInView: $showSignInView)
@@ -56,24 +56,6 @@ struct ContentView: View {
        }
     }
 
-    
-    /*
-    @AppStorage("hasShownIntro") private var hasShownIntro: Bool = true
-    @State private var activeTab: Tab = .recents
-    
-    var body: some View {
-        TabView(selection: $activeTab) {
-            Text("Recents").tabItem { Tab.recents.tabContent }.tag(Tab.recents)
-            Text("Search").tabItem { Tab.search.tabContent }.tag(Tab.search)
-            Text("Chart").tabItem { Tab.charts.tabContent }.tag(Tab.charts)
-            Text("Settings").tabItem { Tab.settings.tabContent }.tag(Tab.settings)
-          }
-        .sheet(isPresented: $hasShownIntro, content: {
-            IntroScreen()
-                .interactiveDismissDisabled()
-        })
-       }
-     */
     
 #Preview {
     ContentView()

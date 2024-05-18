@@ -20,13 +20,8 @@ struct SettingsView: View {
                 List {
                     Section("User Name") {
                         TextField("iName", text: $userName)
+                            .autocorrectionDisabled()
                     }
-                    /*
-                    Section("Planned Expenses") {
-                        TextField("Planned Expenses", value: $plannedExpenses, format: .number)
-                                     .keyboardType(.decimalPad)
-                    }
-                    */
                 }
                 .navigationTitle("Settings")
                 
