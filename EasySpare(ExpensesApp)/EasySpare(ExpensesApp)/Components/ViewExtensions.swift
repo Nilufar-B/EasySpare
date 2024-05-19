@@ -9,6 +9,27 @@ import SwiftUI
 
 extension View {
     
+    
+    @ViewBuilder
+    func FunctionView(symbol: String, title: String, description: String) -> some View {
+        HStack(spacing: 15) {
+            Image(systemName: symbol)
+                .font(.title)
+                .foregroundColor(appTint)
+                .frame(width: 40, height: 40)
+            
+            VStack(alignment: .leading, spacing: 5) {
+                Text(title)
+                    .font(Font.custom("JosefinSans-Bold", size: 20))
+                    .fontWeight(.semibold)
+                
+                Text(description)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+        }
+    }
+    
     @ViewBuilder
     func hSpacing(_ alignment: Alignment = .center) -> some View {
         self.frame(maxWidth: .infinity, alignment: alignment)

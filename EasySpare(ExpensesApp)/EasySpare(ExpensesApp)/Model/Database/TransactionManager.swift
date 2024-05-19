@@ -7,12 +7,16 @@ class TransactionManager: ObservableObject {
     func fetchTransactions(userId: String, completion: @escaping () -> Void) {
         FirestoreManager.shared.fetchTransactions(userId: userId) { fetchedTransactions in
             DispatchQueue.main.async {
-                self.transactions = fetchedTransactions
-                    .filter { !$0.amount.isNaN }
-                    .sorted { $0.dateAdded > $1.dateAdded } // Sort by date in descending order
+                self.transactions = self.filterAndSortTransactions(fetchedTransactions)
                 completion()
             }
         }
+    }
+
+    private func filterAndSortTransactions(_ transactions: [Transactions]) -> [Transactions] {
+        return transactions
+            .filter { !$0.amount.isNaN }
+            .sorted { $0.dateAdded > $1.dateAdded } // Sort by date in descending order
     }
 
     func processTransactions(for interval: CustomTimeInterval, selectedDate: Date) -> [Transactions] {
@@ -22,8 +26,10 @@ class TransactionManager: ObservableObject {
             case .day:
                 return calendar.isDate(transaction.dateAdded, equalTo: selectedDate, toGranularity: .day)
             case .week:
-                let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: selectedDate))!
-                let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek)!
+                guard let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: selectedDate)),
+                      let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek) else {
+                    return false
+                }
                 return transaction.dateAdded >= startOfWeek && transaction.dateAdded <= endOfWeek
             case .month:
                 return calendar.isDate(transaction.dateAdded, equalTo: selectedDate, toGranularity: .month)
@@ -38,11 +44,15 @@ class TransactionManager: ObservableObject {
     }
 
     func calculateIncome() -> Double {
-        transactions.filter { $0.category.rawValue == Category.income.rawValue }.reduce(0) { $0 + $1.amount }
+        return transactions
+            .filter { $0.category.rawValue == Category.income.rawValue }
+            .reduce(0) { $0 + $1.amount }
     }
 
     func calculateExpense() -> Double {
-        transactions.filter { $0.category.rawValue == Category.expense.rawValue }.reduce(0) { $0 + $1.amount }
+        return transactions
+            .filter { $0.category.rawValue == Category.expense.rawValue }
+            .reduce(0) { $0 + $1.amount }
     }
 
     func deleteTransaction(userId: String, transaction: Transactions) {

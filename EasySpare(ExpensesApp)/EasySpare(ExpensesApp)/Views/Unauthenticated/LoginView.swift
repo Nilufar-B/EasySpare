@@ -113,24 +113,6 @@ struct LoginView: View {
                     .navigationBarBackButtonHidden(true)
                     .navigationBarHidden(true)
                     .ignoresSafeArea()
-                    VStack{
-                        HStack{
-                            Button(action: {
-                                mode.wrappedValue.dismiss()
-                            }, label: {
-                                Image(systemName: "chevron.left")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(.black)
-                                
-                            })
-                            .padding()
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    .frame(width: geometry.size.width, alignment: .leading)
                     
                 }
                 .padding(.horizontal, 5)

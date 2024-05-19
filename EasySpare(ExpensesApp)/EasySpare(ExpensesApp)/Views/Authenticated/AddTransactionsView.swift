@@ -60,7 +60,7 @@ struct AddTransactionView: View {
                 .padding()
             }
             .navigationTitle("Add Transaction")
-            .fontWeight(.regular)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

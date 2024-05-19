@@ -43,3 +43,19 @@ struct TransaktionCardView: View {
         .background(.background, in: .rect(cornerRadius: 10))
     }
 }
+
+struct TransaktionCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        TransaktionCardView(transaktion: Transactions(
+            title: "Sample Transaction",
+            remarks: "Sample remarks",
+            amount: 123.45,
+            dateAdded: Date(),
+            category: .expense,
+            tintColor: tints.first!.color
+        ))
+        .previewLayout(.sizeThatFits)
+    }
+}
+
+

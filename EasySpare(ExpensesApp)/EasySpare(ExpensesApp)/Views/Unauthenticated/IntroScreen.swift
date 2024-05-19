@@ -13,56 +13,48 @@ struct IntroScreen: View {
     var onContinue: () -> Void
     
     var body: some View {
-        
-        VStack(spacing: 15){
-                Text("Discover What’s Possible with\nYour Finances")
-                .font(.largeTitle.bold())
+        VStack(spacing: 20) {
+            Spacer()
+            
+            Text("Welcome to Easy Spare")
+                .font(Font.custom("JosefinSans-Bold", size: 30))
+                .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-                .padding(.top, 65)
-                .padding(.bottom, 35)
+               // .padding(.horizontal, 30)
             
-            VStack(alignment: .leading, spacing: 25, content: {
-                PointView(symbol: "eurosign.arrow.circlepath", title: "Transaktions", subTitle: "Seamlessly manage all your financial transactions in one place.")
-                
-                PointView(symbol: "chart.bar.xaxis.ascending.badge.clock", title: "Visual Charts", subTitle: "Transform your data with vibrant, informative charts and graphs.")
-                
-                PointView(symbol: "magnifyingglass", title: "Advance Filters", subTitle: "Quickly navigate through your financial records with powerful filtering options.")
-            })
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 15)
-            
-            Spacer(minLength: 10)
-            
-            //when tapped the app storage will be set to false, and thus it won't appear again when the app opens
-            CustomButton(title: "Continue"){
-                hasShownIntro = false
-                onContinue ()
-            }
-            }
-        .padding(15)
-        }
-    }
-
-@ViewBuilder
-func PointView(symbol: String, title: String, subTitle: String) -> some View {
-    HStack(spacing: 20){
-        Image(systemName: symbol)
-            .font(.largeTitle)
-            .foregroundStyle(appTint.gradient)
-            .frame(width: 45)
-        
-        VStack(alignment: .leading, spacing: 6, content: {
-            Text(title)
-                .font(.title3)
-                .fontWeight(.semibold)
-            
-            Text(subTitle)
+            Text("Take control of your expenses effortlessly.")
+                .font(Font.custom("JosefinSans-Semibold", size: 20))
                 .foregroundColor(.gray)
-        })
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 30)
+                .padding(.bottom, 30)
+            
+            Divider()
+        
+            VStack(alignment: .leading, spacing: 30) {
+                FunctionView(symbol: "eurosign.circle", title: "Manage Transactions", description: "Keep track of all your financial transactions.")
+                FunctionView(symbol: "chart.bar.xaxis", title: "Visual Charts", description: "Visualize your data with detailed charts.")
+            }
+            .padding(.horizontal, 30)
+            
+            Spacer()
+            
+            CustomButton(title: "Continue") {
+                hasShownIntro = false
+                onContinue()
+            }
+            .padding(.horizontal, 30)
+            .padding(.bottom, 40)
+        }
+        .background(
+            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.blue.opacity(0.1)]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+        )
     }
 }
 
-
-#Preview {
-    IntroScreen(onContinue: {})
+struct IntroScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        IntroScreen(onContinue: {})
+    }
 }

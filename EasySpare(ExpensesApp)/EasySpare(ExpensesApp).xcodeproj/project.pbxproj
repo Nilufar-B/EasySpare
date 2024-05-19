@@ -282,7 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				A378B02C2BE54967004FED57 /* AuthenticationViewModel.swift */,
-				A334B83B2BF7E03D00B89ED0 /* TransactionManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -296,6 +295,7 @@
 				A378B07A2BECCEC4004FED57 /* Transactions.swift */,
 				A378B07C2BECCF70004FED57 /* TintColor.swift */,
 				A378B0952BF3E3D9004FED57 /* UserProfile.swift */,
+				A334B83D2BF7E2B000B89ED0 /* CustomTimeInterval.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -329,7 +329,7 @@
 			children = (
 				A378B0972BF3E426004FED57 /* DBconnections.swift */,
 				A378B09C2BF3E758004FED57 /* FirestoreManager.swift */,
-				A334B83D2BF7E2B000B89ED0 /* CustomTimeInterval.swift */,
+				A334B83B2BF7E03D00B89ED0 /* TransactionManager.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
