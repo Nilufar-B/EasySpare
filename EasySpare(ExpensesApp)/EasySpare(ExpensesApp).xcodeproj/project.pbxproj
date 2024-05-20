@@ -237,7 +237,6 @@
 				A378B08A2BF22320004FED57 /* ViewComponents */,
 				A378B01D2BE4DE1B004FED57 /* Authenticated */,
 				A378B01C2BE4DE0D004FED57 /* Unauthenticated */,
-				A378B04D2BE8F473004FED57 /* AuthenticationManager.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -330,6 +329,7 @@
 				A378B0972BF3E426004FED57 /* DBconnections.swift */,
 				A378B09C2BF3E758004FED57 /* FirestoreManager.swift */,
 				A334B83B2BF7E03D00B89ED0 /* TransactionManager.swift */,
+				A378B04D2BE8F473004FED57 /* AuthenticationManager.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";

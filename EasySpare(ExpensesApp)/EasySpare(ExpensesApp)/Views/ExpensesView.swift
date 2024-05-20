@@ -21,8 +21,14 @@ struct ExpensesView: View {
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
-                List {
-                    Section {
+                VStack(spacing: 0) {
+                    VStack(spacing: 10) {
+                        HeaderView(size: .init(width: UIScreen.main.bounds.width, height: 70), userId: userId, onSave: {
+                            transactionManager.fetchTransactions(userId: userId) {}
+                        })
+                        .background(Color.white)
+                        .zIndex(1)
+                        
                         Button(action: {
                             showFilterView = true
                         }) {
@@ -36,29 +42,37 @@ struct ExpensesView: View {
                             }
                         }
                         .hSpacing(.leading)
-                        
-                        CardView(income: transactionManager.calculateIncome(), expense: transactionManager.calculateExpense())
-                        CustomSegmentedControl(selectedCategory: $selectedCategory, namespace: animation)
-                        
-                        ForEach(transactionManager.transactions.filter({ $0.category.rawValue == selectedCategory.rawValue })) { transaktion in
-                            TransaktionCardView(transaktion: transaktion)
-                                .swipeActions {
-                                    Button(role: .destructive) {
-                                        transactionManager.deleteTransaction(userId: userId, transaction: transaktion)
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
-                                }
+                        .padding(.horizontal)
+                        VStack(spacing: 10){
+                            CardView(income: transactionManager.calculateIncome(), expense: transactionManager.calculateExpense())
+                                .padding(.horizontal)
+                            
+                            CustomSegmentedControl(selectedCategory: $selectedCategory, namespace: animation)
+                                .padding(.horizontal)
                         }
-                    } header: {
-                        HeaderView(size: .init(width: UIScreen.main.bounds.width, height: 70), userId: userId, onSave: {
-                            transactionManager.fetchTransactions(userId: userId) {}
-                        })
+                        .padding(.bottom, 10)
+                    }
+
+                    .background(Color.white)
+                    .shadow(radius: 5)
+                    
+                    ScrollView {
+                        LazyVStack(spacing: 0) {
+                            ForEach(transactionManager.transactions.filter({ $0.category.rawValue == selectedCategory.rawValue })) { transaktion in
+                                TransaktionCardView(transaktion: transaktion)
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            transactionManager.deleteTransaction(userId: userId, transaction: transaktion)
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                            }
+                        }
                     }
                 }
                 .background(.gray.opacity(0.15))
-                .blur(radius: showFilterView ? 8 : 0)
-                .disabled(showFilterView)
                 .onAppear {
                     transactionManager.fetchTransactions(userId: userId) {}
                 }

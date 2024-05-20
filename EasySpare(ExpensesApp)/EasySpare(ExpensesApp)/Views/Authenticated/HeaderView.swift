@@ -16,14 +16,12 @@ struct HeaderView: View {
     var body: some View {
         HStack(spacing: 10) {
             VStack(alignment: .leading, spacing: 5) {
-                Text("Welcome!")
-                    .font(.title.bold())
-                
+               /*
                 if !userName.isEmpty {
                     Text(userName)
                         .font(.caption2)
                         .foregroundStyle(.gray)
-                }
+                }*/
             }
             .padding(.bottom, 8)
             .visualEffect { content, geometryProxy in

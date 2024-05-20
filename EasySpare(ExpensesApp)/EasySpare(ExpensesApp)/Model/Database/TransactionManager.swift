@@ -1,3 +1,10 @@
+//
+//  AuthenticationManager.swift
+//  EasySpare(ExpensesApp)
+//
+//  Created by Nilufar Bakhridinova on 2024-05-06.
+//
+
 import Foundation
 import FirebaseFirestore
 
@@ -35,6 +42,32 @@ class TransactionManager: ObservableObject {
                 return calendar.isDate(transaction.dateAdded, equalTo: selectedDate, toGranularity: .month)
             }
         }
+    }
+    
+    func processMonthlyTransactions(for date: Date) -> [(month: Int, income: Double, expense: Double)] {
+        var monthlyTransactions: [Int: (income: Double, expense: Double)] = [:]
+        let calendar = Calendar.current
+        
+        for transaction in transactions {
+            let month = calendar.component(.month, from: transaction.dateAdded)
+            let year = calendar.component(.year, from: transaction.dateAdded)
+            let currentYear = calendar.component(.year, from: date)
+            
+            if year == currentYear {
+                if transaction.category.rawValue == Category.income.rawValue {
+                    monthlyTransactions[month, default: (0, 0)].income += transaction.amount
+                } else if transaction.category.rawValue == Category.expense.rawValue {
+                    monthlyTransactions[month, default: (0, 0)].expense += transaction.amount
+                }
+            }
+        }
+        
+        return monthlyTransactions.map { (month: $0.key, income: $0.value.income, expense: $0.value.expense) }
+    }
+
+    func monthName(from month: Int) -> String {
+        let formatter = DateFormatter()
+        return formatter.shortMonthSymbols[month - 1]
     }
 
     func weekdayName(from date: Date) -> String {
