@@ -52,6 +52,24 @@ class FirestoreManager {
             completion(transactions)
         }
     }
+    func updateTransaction(transaction: Transactions, userId: String, completion: @escaping () -> Void) {
+            let docRef = db.collection("users").document(userId).collection("transactions").document(transaction.id)
+            docRef.setData([
+                "title": transaction.title,
+                "remarks": transaction.remarks,
+                "amount": transaction.amount,
+                "dateAdded": transaction.dateAdded,
+                "category": transaction.category.rawValue,
+                "tintColor": transaction.tintColor
+            ]) { error in
+                if let error = error {
+                    print("Error updating transaction: \(error.localizedDescription)")
+                } else {
+                    print("Transaction successfully updated!")
+                    completion()
+                }
+            }
+        }
 
     func deleteTransaction(userId: String, transactionId: String, completion: @escaping (Error?) -> Void) {
         db.collection("users").document(userId).collection("transactions").document(transactionId).delete { error in

@@ -3,7 +3,6 @@
 //
 //  Created by Nilufar Bakhridinova on 2024-05-07.
 //
-
 import SwiftUI
 
 struct ExpensesView: View {
@@ -14,6 +13,8 @@ struct ExpensesView: View {
     @State private var endDate: Date = Date().endMonth
     @State private var showFilterView: Bool = false
     @State private var selectedCategory: Category = .expense
+    @State private var showEditTransactionView: Bool = false
+    @State private var transactionToEdit: Transactions?
     @Namespace private var animation
     
     var userId: String
@@ -60,6 +61,10 @@ struct ExpensesView: View {
                         LazyVStack(spacing: 0) {
                             ForEach(transactionManager.transactions.filter({ $0.category.rawValue == selectedCategory.rawValue })) { transaktion in
                                 TransaktionCardView(transaktion: transaktion)
+                                    .onTapGesture {
+                                        transactionToEdit = transaktion
+                                        showEditTransactionView = true
+                                    }
                                     .swipeActions {
                                         Button(role: .destructive) {
                                             transactionManager.deleteTransaction(userId: userId, transaction: transaktion)
@@ -75,6 +80,13 @@ struct ExpensesView: View {
                 .background(.gray.opacity(0.15))
                 .onAppear {
                     transactionManager.fetchTransactions(userId: userId) {}
+                }
+                .sheet(isPresented: $showEditTransactionView) {
+                    if let transactionToEdit = transactionToEdit {
+                        EditTransactionView(isPresented: $showEditTransactionView, userId: userId, transaction: transactionToEdit) {
+                            transactionManager.fetchTransactions(userId: userId) {}
+                        }
+                    }
                 }
             }
             .overlay {
