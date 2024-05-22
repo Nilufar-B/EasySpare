@@ -8,55 +8,45 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
-    @AppStorage("userName") private var userName: String = ""
-    @StateObject private var loginVM = AuthenticationViewModel()
     @Binding var showSignInView: Bool
-    @State private var plannedExpenses: Double = 0
-    
+    var userEmail: String
+
     var body: some View {
-        NavigationStack{
-            ZStack{
-                List {
-                    Section("User Name") {
-                        TextField("iName", text: $userName)
-                            .autocorrectionDisabled()
-                    }
+        /*VStack {
+            Text("Email: \(userEmail)")
+                .font(.title2)
+                .padding()
+
+            CustomButton(title: "Sign Out") {
+                Task {
+                    try? AuthenticationManager.shared.signOut()
+                    showSignInView = true
                 }
-                .navigationTitle("Settings")
-                
-                VStack{
-                    CustomButton(title: "Save", didTap: {
-                        let userProfile = UserProfile(userName: userName, plannedExpenses: plannedExpenses)
-                    DBConnections.shared.saveUserProfile(userProfile: userProfile)
-                    })
-                    
-                    Button(action: {
-                        Task{
-                            do{
-                                try loginVM.signOut()
-                                showSignInView = true
-                            }catch{
-                                print(error)
+            }
+            .padding()
+        }*/
+        NavigationStack{
+                    ZStack{
+                        List {
+                            Section("E-mail") {
+                                Text("\(userEmail)")
+                                    .autocorrectionDisabled()
                             }
                         }
-                    }) {
-                        Text("Log Out")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.red)
-                            .cornerRadius(10)
-                    }
+                        .navigationTitle("Settings")
+                        
+                        VStack{
+                            CustomButton(title: "Log Out", didTap: {
+                                Task {
+                                    try? AuthenticationManager.shared.signOut()
+                                    showSignInView = true
+                                }
+                            })
+                
+                        }
+                                  
                 }
-      
             }
-        }
         .padding(10)
     }
-}
-
-#Preview {
-    SettingsView(showSignInView: .constant(false))
 }

@@ -69,7 +69,7 @@ struct EditTransactionView: View {
         }
         
         let updatedTransaction = Transactions(
-            id: transaction.id, // Используйте существующий идентификатор
+            id: transaction.id, 
             title: title,
             remarks: remarks,
             amount: amountValue,

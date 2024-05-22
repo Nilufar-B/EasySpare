@@ -7,57 +7,61 @@
 
 import SwiftUI
 
-
 struct ContentView: View {
-    
-        @AppStorage("hasShownIntro") private var hasShownIntro: Bool = false
-         @State private var showSignInView: Bool = true
-         @State private var activeTab: Tab = .expenses
+    @AppStorage("hasShownIntro") private var hasShownIntro: Bool = false
+    @State private var showSignInView: Bool = true
+    @State private var activeTab: Tab = .expenses
     @State private var userId: String = ""
-         
-         var body: some View {
-             ZStack{
-                 if !hasShownIntro {
-                     IntroScreen(onContinue: {
-                         hasShownIntro = true
-                         checkLoginStatus()
-                     })
-                 }else if showSignInView {
-                     LoginView(showSignInView: $showSignInView,
-                               onLoginSuccess: { authUserId in
-                         userId = authUserId
-                         checkLoginStatus()
-                     })
-                 }else {
-                //  SettingsView.(showSignInView: $showSignInView)
-                     TabView(selection: $activeTab) {
-                         ExpensesView(userId: userId)
-                         .tabItem { Tab.expenses.tabContent }.tag(Tab.expenses)
-                    // SearchView()
-                            // .tabItem { Tab.search.tabContent }.tag(Tab.search)
-                     GraphView(userId: userId)
-                             .tabItem { Tab.charts.tabContent }.tag(Tab.charts)
-                     SettingsView(showSignInView: $showSignInView)
-                             .tabItem { Tab.settings.tabContent }.tag(Tab.settings)
-                     }
-                     .tint(appTint)
-                 }
-             }
+    @State private var userEmail: String = ""
 
-         }
-    @MainActor
-    private func checkLoginStatus() {
-           if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser() {
-               showSignInView = false
-               userId = authUser.uuid
-           } else {
-               showSignInView = true
-           }
-       }
+    var body: some View {
+        ZStack {
+            if !hasShownIntro {
+                IntroScreen(onContinue: {
+                    hasShownIntro = true
+                    checkLoginStatus()
+                })
+            } else if showSignInView {
+                LoginView(showSignInView: $showSignInView, onLoginSuccess: { authData in
+                    userId = authData.uuid
+                    userEmail = authData.email ?? ""
+                    checkLoginStatus()
+                    activeTab = .expenses
+                })
+            } else {
+                TabView(selection: $activeTab) {
+                    ExpensesView(userId: userId, userEmail: userEmail)
+                        .tabItem { Tab.expenses.tabContent }.tag(Tab.expenses)
+                    GraphView(userId: userId)
+                        .tabItem { Tab.charts.tabContent }.tag(Tab.charts)
+                    SettingsView(showSignInView: $showSignInView, userEmail: userEmail)
+                        .tabItem { Tab.settings.tabContent }.tag(Tab.settings)
+                }
+                .tint(appTint)
+                .onAppear {
+                    activeTab = .expenses
+               }
+            }
+        }
     }
 
-    
-#Preview {
-    ContentView()
-}
+    @MainActor
+        private func checkLoginStatus() {
+            if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser() {
+                showSignInView = false
+                userId = authUser.uuid
+                userEmail = authUser.email ?? ""
+            } else {
+                showSignInView = true
+                userId = ""
+                userEmail = ""
+            }
+        }
+    }
 
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}

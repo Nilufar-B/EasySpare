@@ -9,33 +9,25 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    @Environment (\.presentationMode) var mode: Binding<PresentationMode>
-    @StateObject var loginVM = AuthenticationViewModel.shared  
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @StateObject var loginVM = AuthenticationViewModel.shared
     @State private var isRegistrationSuccess = false
     @Binding var showSignInView: Bool
     
-    var onSignUpSuccess: (String) -> Void
+    var onSignUpSuccess: (AuthDataResultModel) -> Void
 
     var body: some View {
-        GeometryReader{ geometry in
-            NavigationView{
-                ZStack{
+        GeometryReader { geometry in
+            NavigationView {
+                ZStack {
                     
-                    Image("")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                        .edgesIgnoringSafeArea(.all)
-                    
-                    VStack{
-                        
+                    VStack {
                         Image(systemName:"person.crop.circle.fill")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 40)
                             .foregroundColor(.black)
                             .padding(.bottom, 40)
-                        
                         
                         Text("Create your account")
                             .font(.system(size: 20))
@@ -52,34 +44,30 @@ struct SignUpView: View {
                         TextSecureLine(title: "Confirm Password", placeholder: "Confirm your password", txt: $loginVM.txtPasswordConfirm, isShowPassword: $loginVM.isShowPassword)
                             .padding(.bottom, 20)
                         
-                        CustomButton(title: "Register"){
-                            Task{
-                                do{
+                        CustomButton(title: "Register") {
+                            Task {
+                                do {
                                     try await loginVM.signUp()
-                                    if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser(){
-                                        showSignInView = false
-                                        onSignUpSuccess(authUser.uuid)
+                                    if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser() {
+                                    showSignInView = false
+                                   onSignUpSuccess(authUser)
                                     }
-                                   
-                                    return
-                                }catch{
+                                } catch {
                                     print(error)
+                                        }
                                 }
-                            }
                         }
                         .padding(.bottom, 8)
                         
-                        
-                        
-                        HStack{
+                        HStack {
                             Text("Already have an account?")
                                 .font(.system(size: 16))
                                 .foregroundColor(.secondary)
                             
-                            NavigationLink(destination: LoginView(showSignInView: $showSignInView, onLoginSuccess: { _ in
+                            NavigationLink(destination: LoginView(showSignInView: $showSignInView, onLoginSuccess: { email in
+                                onSignUpSuccess(email)
                                 mode.wrappedValue.dismiss()
                             })) {
-                                
                                 Text("Log In")
                                     .font(.system(size: 16))
                                     .bold()
@@ -95,24 +83,6 @@ struct SignUpView: View {
                     .padding(.top, 30)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 30)
-                    
-                    VStack{
-                        HStack{
-                            Button(action: {
-                                mode.wrappedValue.dismiss()
-                            }, label: {
-                                Image(systemName: "chevron.left")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(.black)
-                            })
-                            .padding()
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    .frame(width: geometry.size.width, alignment: .leading)
                 }
                 .padding(.horizontal, 5)
                 .padding(.top, 30)
@@ -126,7 +96,8 @@ struct SignUpView: View {
     }
 }
 
-#Preview {
-    SignUpView(showSignInView: .constant(true), onSignUpSuccess: { _ in })
-    
+struct SignUpView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpView(showSignInView: .constant(true), onSignUpSuccess: { _ in })
+    }
 }

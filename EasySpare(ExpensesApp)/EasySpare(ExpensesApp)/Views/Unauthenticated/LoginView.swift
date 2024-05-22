@@ -13,7 +13,7 @@ struct LoginView: View {
     @Environment (\.presentationMode) var mode: Binding<PresentationMode>
     @StateObject var loginVM = AuthenticationViewModel.shared
     @Binding var showSignInView: Bool
-    var onLoginSuccess: (String) -> Void
+    var onLoginSuccess: (AuthDataResultModel) -> Void
 
 
     
@@ -21,12 +21,6 @@ struct LoginView: View {
         GeometryReader{ geometry in
             NavigationView{
                 ZStack{
-                    
-                    Image("")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                        .edgesIgnoringSafeArea(.all)
                     
                     VStack{
                         
@@ -74,7 +68,7 @@ struct LoginView: View {
                         .padding(.bottom, 40)
                         
                         CustomButton(title: "Log In") {
-                            Task{
+                          /*  Task{
                                 do{
                                     try await loginVM.signIn()
                                     if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser(){
@@ -84,7 +78,15 @@ struct LoginView: View {
                                 }catch{
                                     print(error)
                                 }
-                            }
+                            }*/
+                            Task {
+                                                do {
+                                                    let authData = try await loginVM.signIn()
+                                                    onLoginSuccess(authData)
+                                                } catch {
+                                                    print("Login error: \(error)")
+                                                }
+                                            }
                        
                         }
                         .padding(.bottom, 8)

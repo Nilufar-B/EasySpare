@@ -6,7 +6,6 @@
 import SwiftUI
 
 struct ExpensesView: View {
-    @AppStorage("userName") private var userName: String = ""
     @StateObject private var transactionManager = TransactionManager()
     
     @State private var startDate: Date = Date().startMonth
@@ -18,6 +17,7 @@ struct ExpensesView: View {
     @Namespace private var animation
     
     var userId: String
+    var userEmail: String
     
     var body: some View {
         GeometryReader { geometry in
@@ -82,12 +82,12 @@ struct ExpensesView: View {
                     transactionManager.fetchTransactions(userId: userId) {}
                 }
                 .sheet(isPresented: $showEditTransactionView) {
-                    if let transactionToEdit = transactionToEdit {
-                        EditTransactionView(isPresented: $showEditTransactionView, userId: userId, transaction: transactionToEdit) {
-                            transactionManager.fetchTransactions(userId: userId) {}
-                        }
-                    }
-                }
+                                    if let transactionToEdit = transactionToEdit {
+                                        EditTransactionView(isPresented: $showEditTransactionView, userId: userId, transaction: transactionToEdit) {
+                                            transactionManager.fetchTransactions(userId: userId) {}
+                                        }
+                                    }
+                                }
             }
             .overlay {
                 if showFilterView {
@@ -108,6 +108,6 @@ struct ExpensesView: View {
 
 struct ExpensesView_Previews: PreviewProvider {
     static var previews: some View {
-        ExpensesView(userId: "exampleUserId")
+        ExpensesView(userId: "exampleUserId", userEmail: "example@example.com")
     }
 }
