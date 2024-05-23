@@ -49,6 +49,7 @@ struct SignUpView: View {
                                 do {
                                     try await loginVM.signUp()
                                     if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser() {
+                                    loginVM.resetFields()
                                     showSignInView = false
                                    onSignUpSuccess(authUser)
                                     }

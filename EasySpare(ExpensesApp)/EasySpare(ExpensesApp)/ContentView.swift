@@ -39,7 +39,8 @@ struct ContentView: View {
                 }
                 .tint(appTint)
                 .onAppear {
-                    activeTab = .expenses
+                  //  activeTab = .expenses
+                    checkLoginStatus()
                }
             }
         }

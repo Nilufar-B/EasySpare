@@ -82,6 +82,7 @@ struct LoginView: View {
                             Task {
                                                 do {
                                                     let authData = try await loginVM.signIn()
+                                                    loginVM.resetFields()
                                                     onLoginSuccess(authData)
                                                 } catch {
                                                     print("Login error: \(error)")
