@@ -13,12 +13,14 @@ class DBConnections {
     static let shared = DBConnections()
     private init() {} // Private initializer for singleton
     
+    // Reference to the Firestore database
     private let db = Firestore.firestore()
 
 
     // Saving a user profile
     func saveUserProfile(userProfile: UserProfile) {
-        db.collection("users").document(userProfile.userName).setData([
+        // Set data in the "users" collection with the document named after the user's username
+        db.collection("users").document(userProfile.userEmail).setData([
             "plannedExpenses": userProfile.plannedExpenses
         ]) { error in
             if let error = error {
@@ -30,12 +32,13 @@ class DBConnections {
     }
 
     
-    func fetchUserProfile(userName: String, completion: @escaping (UserProfile?) -> Void) {
-        db.collection("users").document(userName).getDocument { (document, error) in
+    func fetchUserProfile(userEmail: String, completion: @escaping (UserProfile?) -> Void) {
+        // Get the document from the "users" collection with the specified username
+        db.collection("users").document(userEmail).getDocument { (document, error) in
             if let document = document, document.exists {
                 let data = document.data()
                 let plannedExpenses = data?["plannedExpenses"] as? Double ?? 0
-                completion(UserProfile(userName: userName, plannedExpenses: plannedExpenses))
+                completion(UserProfile(userEmail: userEmail, plannedExpenses: plannedExpenses))
             } else {
                 print("Document does not exist")
                 completion(nil)
@@ -45,6 +48,7 @@ class DBConnections {
     
     // Create a collection of user expenses
     func createUserExpensesCollection(userId: String) {
+        // Reference to the "expenses" subcollection within the user's document
         let expensesCollection = db.collection("users").document(userId).collection("expenses")
         
         // Adding an example entry to initialize a collection

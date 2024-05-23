@@ -18,13 +18,15 @@ final class AuthenticationViewModel: ObservableObject {
 
     func signUp() async throws -> AuthDataResultModel {
         guard !txtEmail.isEmpty, !txtPassword.isEmpty else {
-            print("No email or password found") // Замена на алерт
+            print("No email or password found") // Replace with alert
             throw URLError(.badURL)
         }
-        
+       // Create a new user using AuthenticationManager
         let authData = try await AuthenticationManager.shared.createUser(email: txtEmail, password: txtPassword)
-        let userProfile = UserProfile(userName: authData.uuid, plannedExpenses: 0)
+        // Ensure authData.uuid is not empty or nil
+        let userProfile = UserProfile(userEmail: authData.uuid, plannedExpenses: 0) // Create and save user profile in database
         DBConnections.shared.saveUserProfile(userProfile: userProfile)
+        // Create a collection for user's expenses
         DBConnections.shared.createUserExpensesCollection(userId: authData.uuid)
         resetFields()
         return authData
@@ -32,9 +34,10 @@ final class AuthenticationViewModel: ObservableObject {
 
     func signIn() async throws -> AuthDataResultModel {
         guard !txtEmail.isEmpty, !txtPassword.isEmpty else {
-            print("No email or password found")
+            print("No email or password found") // Replace with alert
             throw URLError(.badURL)
         }
+        // Sign in the user using AuthenticationManager
         let authData = try await AuthenticationManager.shared.signInUser(email: txtEmail, password: txtPassword)
               resetFields()
               return authData
@@ -45,14 +48,18 @@ final class AuthenticationViewModel: ObservableObject {
     }
 
     func resetPassword() async throws {
+        // Get the currently authenticated user
         let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
 
+        // Ensure the user's email is available
         guard let email = authUser.email else {
             throw URLError(.fileDoesNotExist)  // Создание пользовательской ошибки
         }
+        // Send password reset email
         try await AuthenticationManager.shared.resetPassword(email: email)
     }
     
+    // Method to reset all input fields
     func resetFields() {
            txtEmail = ""
            txtPassword = ""

@@ -13,6 +13,7 @@ struct AuthDataResultModel {
     let email: String?
     let photoUrl: String?
     
+    // Initialize model with Firebase user data
     init(user: User) {
         self.uuid = user.uid
         self.email = user.email
@@ -20,10 +21,10 @@ struct AuthDataResultModel {
     }
 }
 
-@MainActor
+@MainActor // Ensures that all operations within the class run on the main thread, which is essential for UI updates.
 final class AuthenticationManager {
     static let shared = AuthenticationManager()
-    private init() {}
+    private init() {} //A private initializer to prevent instantiation from outside the class
     
     func getAuthenticatedUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else {
@@ -32,13 +33,11 @@ final class AuthenticationManager {
         return AuthDataResultModel(user: user)
     }
     
-    @discardableResult
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
         return AuthDataResultModel(user: authDataResult.user)
     }
     
-    @discardableResult
     func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
         return AuthDataResultModel(user: authDataResult.user)
@@ -65,4 +64,6 @@ final class AuthenticationManager {
     func signOut() throws {
         try Auth.auth().signOut()
     }
+    
+    
 }

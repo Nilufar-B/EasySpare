@@ -11,9 +11,12 @@ import FirebaseFirestore
 class TransactionManager: ObservableObject {
     @Published var transactions: [Transactions] = []
 
+    // Method to fetch transactions for a specific user
     func fetchTransactions(userId: String, completion: @escaping () -> Void) {
+        // Fetch transactions from Firestore using FirestoreManager
         FirestoreManager.shared.fetchTransactions(userId: userId) { fetchedTransactions in
             DispatchQueue.main.async {
+                // Filter and sort the fetched transactions before updating
                 self.transactions = self.filterAndSortTransactions(fetchedTransactions)
                 completion()
             }
@@ -22,10 +25,11 @@ class TransactionManager: ObservableObject {
 
     private func filterAndSortTransactions(_ transactions: [Transactions]) -> [Transactions] {
         return transactions
-            .filter { !$0.amount.isNaN }
+            .filter { !$0.amount.isNaN } // Filter out transactions with NaN amount
             .sorted { $0.dateAdded > $1.dateAdded } // Sort by date in descending order
     }
 
+    // Method to process transactions based on a given time interval
     func processTransactions(for interval: CustomTimeInterval, selectedDate: Date) -> [Transactions] {
         let calendar = Calendar.current
         return transactions.filter { transaction in
@@ -44,8 +48,9 @@ class TransactionManager: ObservableObject {
         }
     }
     
+    // Method to process monthly transactions and aggregate income and expense
     func processMonthlyTransactions(for date: Date) -> [(month: Int, income: Double, expense: Double)] {
-        var monthlyTransactions: [Int: (income: Double, expense: Double)] = [:]
+        var monthlyTransactions: [Int: (income: Double, expense: Double)] = [:] //An empty dictionary is created that will be filled with data.
         let calendar = Calendar.current
         
         for transaction in transactions {
@@ -62,7 +67,7 @@ class TransactionManager: ObservableObject {
             }
         }
         
-        return monthlyTransactions.map { (month: $0.key, income: $0.value.income, expense: $0.value.expense) }
+        return monthlyTransactions.map { (month: $0.key, income: $0.value.income, expense: $0.value.expense) } //Convert the dictionary to an array of tuples, where each element represents a month, income, and expense
     }
 
     func monthName(from month: Int) -> String {
@@ -78,7 +83,7 @@ class TransactionManager: ObservableObject {
 
     func calculateIncome() -> Double {
         return transactions
-            .filter { $0.category.rawValue == Category.income.rawValue }
+            .filter { $0.category.rawValue == Category.income.rawValue } 
             .reduce(0) { $0 + $1.amount }
     }
 
