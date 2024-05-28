@@ -28,6 +28,12 @@ class TransactionManager: ObservableObject {
             .filter { !$0.amount.isNaN } // Filter out transactions with NaN amount
             .sorted { $0.dateAdded > $1.dateAdded } // Sort by date in descending order
     }
+    
+    func filteredTransactions(startDate: Date, endDate: Date, category: Category) -> [Transactions] {
+            return transactions.filter { transaction in
+                transaction.dateAdded >= startDate && transaction.dateAdded <= endDate && transaction.category == category
+            }
+        }
 
     // Method to process transactions based on a given time interval
     func processTransactions(for interval: CustomTimeInterval, selectedDate: Date) -> [Transactions] {
@@ -38,7 +44,7 @@ class TransactionManager: ObservableObject {
                 return calendar.isDate(transaction.dateAdded, equalTo: selectedDate, toGranularity: .day)
             case .week:
                 guard let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: selectedDate)),
-                      let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek) else {
+                      let endOfWeek = calendar.date(byAdding: .day, value: 7, to: startOfWeek) else {
                     return false
                 }
                 return transaction.dateAdded >= startOfWeek && transaction.dateAdded <= endOfWeek
@@ -50,26 +56,27 @@ class TransactionManager: ObservableObject {
     
     // Method to process monthly transactions and aggregate income and expense
     func processMonthlyTransactions(for date: Date) -> [(month: Int, income: Double, expense: Double)] {
-        var monthlyTransactions: [Int: (income: Double, expense: Double)] = [:] //An empty dictionary is created that will be filled with data.
-        let calendar = Calendar.current
-        
-        for transaction in transactions {
-            let month = calendar.component(.month, from: transaction.dateAdded)
-            let year = calendar.component(.year, from: transaction.dateAdded)
-            let currentYear = calendar.component(.year, from: date)
+            var monthlyTransactions: [Int: (income: Double, expense: Double)] = [:] //An empty dictionary is created that will be filled with data.
+            let calendar = Calendar.current
             
-            if year == currentYear {
-                if transaction.category.rawValue == Category.income.rawValue {
-                    monthlyTransactions[month, default: (0, 0)].income += transaction.amount
-                } else if transaction.category.rawValue == Category.expense.rawValue {
-                    monthlyTransactions[month, default: (0, 0)].expense += transaction.amount
+            for transaction in transactions {
+                let month = calendar.component(.month, from: transaction.dateAdded)
+                let year = calendar.component(.year, from: transaction.dateAdded)
+                let currentYear = calendar.component(.year, from: date)
+                
+                if year == currentYear {
+                    if transaction.category.rawValue == Category.income.rawValue {
+                        monthlyTransactions[month, default: (0, 0)].income += transaction.amount
+                    } else if transaction.category.rawValue == Category.expense.rawValue {
+                        monthlyTransactions[month, default: (0, 0)].expense += transaction.amount
+                    }
                 }
             }
+            
+            return monthlyTransactions.map { (month: $0.key, income: $0.value.income, expense: $0.value.expense) } //Convert the dictionary to an array of tuples, where each element represents a month, income, and expense
         }
-        
-        return monthlyTransactions.map { (month: $0.key, income: $0.value.income, expense: $0.value.expense) } //Convert the dictionary to an array of tuples, where each element represents a month, income, and expense
-    }
 
+    
     func monthName(from month: Int) -> String {
         let formatter = DateFormatter()
         return formatter.shortMonthSymbols[month - 1]

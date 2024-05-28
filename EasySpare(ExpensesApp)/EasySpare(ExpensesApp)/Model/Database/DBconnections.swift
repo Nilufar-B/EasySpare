@@ -49,7 +49,7 @@ class DBConnections {
     // Create a collection of user expenses
     func createUserExpensesCollection(userId: String) {
         // Reference to the "expenses" subcollection within the user's document
-        let expensesCollection = db.collection("users").document(userId).collection("expenses")
+        let expensesCollection = db.collection("users").document(userId).collection("transactions")
         
         // Adding an example entry to initialize a collection
         expensesCollection.addDocument(data: [

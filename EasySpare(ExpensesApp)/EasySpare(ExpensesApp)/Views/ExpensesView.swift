@@ -3,6 +3,7 @@
 //
 //  Created by Nilufar Bakhridinova on 2024-05-07.
 //
+
 import SwiftUI
 
 struct ExpensesView: View {
@@ -44,7 +45,8 @@ struct ExpensesView: View {
                         }
                         .hSpacing(.leading)
                         .padding(.horizontal)
-                        VStack(spacing: 10){
+                        
+                        VStack(spacing: 10) {
                             CardView(income: transactionManager.calculateIncome(), expense: transactionManager.calculateExpense())
                                 .padding(.horizontal)
                             
@@ -53,21 +55,20 @@ struct ExpensesView: View {
                         }
                         .padding(.bottom, 10)
                     }
-
                     .background(Color.white)
                     .shadow(radius: 5)
                     
                     ScrollView {
                         LazyVStack(spacing: 0) {
-                            ForEach(transactionManager.transactions.filter({ $0.category.rawValue == selectedCategory.rawValue })) { transaktion in
-                                TransaktionCardView(transaktion: transaktion)
+                            ForEach(transactionManager.filteredTransactions(startDate: startDate, endDate: endDate, category: selectedCategory)) { transaction in
+                                TransaktionCardView(transaktion: transaction)
                                     .onTapGesture {
-                                        transactionToEdit = transaktion
+                                        transactionToEdit = transaction
                                         showEditTransactionView = true
                                     }
                                     .swipeActions {
                                         Button(role: .destructive) {
-                                            transactionManager.deleteTransaction(userId: userId, transaction: transaktion)
+                                            transactionManager.deleteTransaction(userId: userId, transaction: transaction)
                                         } label: {
                                             Label("Delete", systemImage: "trash")
                                         }
@@ -82,12 +83,12 @@ struct ExpensesView: View {
                     transactionManager.fetchTransactions(userId: userId) {}
                 }
                 .sheet(isPresented: $showEditTransactionView) {
-                                    if let transactionToEdit = transactionToEdit {
-                                        EditTransactionView(isPresented: $showEditTransactionView, userId: userId, transaction: transactionToEdit) {
-                                            transactionManager.fetchTransactions(userId: userId) {}
-                                        }
-                                    }
-                                }
+                    if let transactionToEdit = transactionToEdit {
+                        EditTransactionView(isPresented: $showEditTransactionView, userId: userId, transaction: transactionToEdit) {
+                            transactionManager.fetchTransactions(userId: userId) {}
+                        }
+                    }
+                }
             }
             .overlay {
                 if showFilterView {
@@ -96,6 +97,10 @@ struct ExpensesView: View {
                         endDate = end
                         showFilterView = false
                     }, onClose: {
+                        showFilterView = false
+                    }, onReset: {
+                        startDate = Date().startMonth
+                        endDate = Date().endMonth
                         showFilterView = false
                     })
                     .transition(.move(edge: .leading))

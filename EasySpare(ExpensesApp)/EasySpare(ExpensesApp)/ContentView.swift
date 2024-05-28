@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var viewModel = AuthenticationViewModel.shared
     @AppStorage("hasShownIntro") private var hasShownIntro: Bool = false
     @State private var showSignInView: Bool = true
     @State private var activeTab: Tab = .expenses
@@ -44,6 +46,9 @@ struct ContentView: View {
                }
             }
         }
+        .alert(isPresented: $viewModel.showAlert) {
+                 Alert(title: Text("Alert"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
+             }
     }
 
     @MainActor

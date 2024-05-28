@@ -3,6 +3,8 @@
 //
 //  Created by Nilufar Bakhridinova on 2024-05-10.
 //
+
+
 import SwiftUI
 import Charts
 
@@ -22,6 +24,13 @@ struct GraphView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
+            
+            // Conditionally display DatePicker when the selected interval is week
+            if selectedInterval == .week {
+                DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding()
+            }
             
             Chart {
                 if selectedInterval == .month {
