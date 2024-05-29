@@ -30,7 +30,7 @@ struct EditTransactionView: View {
         self._amount = State(initialValue: String(transaction.amount))
         self._dateAdded = State(initialValue: transaction.dateAdded)
         self._category = State(initialValue: transaction.category)
-        self._selectedTintColor = State(initialValue: TintColor(color: transaction.tintColor, value: .red)) // Замените .red на подходящий цвет
+        self._selectedTintColor = State(initialValue: TintColor(color: transaction.tintColor, value: .red)) 
     }
 
     var body: some View {

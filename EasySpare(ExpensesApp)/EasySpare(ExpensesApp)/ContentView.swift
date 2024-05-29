@@ -41,7 +41,6 @@ struct ContentView: View {
                 }
                 .tint(appTint)
                 .onAppear {
-                  //  activeTab = .expenses
                     checkLoginStatus()
                }
             }

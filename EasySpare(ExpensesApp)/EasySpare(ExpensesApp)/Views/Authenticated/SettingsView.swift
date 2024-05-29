@@ -12,19 +12,7 @@ struct SettingsView: View {
     var userEmail: String
 
     var body: some View {
-        /*VStack {
-            Text("Email: \(userEmail)")
-                .font(.title2)
-                .padding()
-
-            CustomButton(title: "Sign Out") {
-                Task {
-                    try? AuthenticationManager.shared.signOut()
-                    showSignInView = true
-                }
-            }
-            .padding()
-        }*/
+    
         NavigationStack{
                     ZStack{
                         List {

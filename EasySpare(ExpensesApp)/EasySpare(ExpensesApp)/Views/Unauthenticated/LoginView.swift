@@ -68,26 +68,15 @@ struct LoginView: View {
                         .padding(.bottom, 40)
                         
                         CustomButton(title: "Log In") {
-                          /*  Task{
-                                do{
-                                    try await loginVM.signIn()
-                                    if let authUser = try? AuthenticationManager.shared.getAuthenticatedUser(){
-                                        showSignInView = false
-                                        onLoginSuccess(authUser.uuid)
-                                    }
-                                }catch{
-                                    print(error)
-                                }
-                            }*/
                             Task {
-                                                do {
-                                                    let authData = try await loginVM.signIn()
-                                                    loginVM.resetFields()
-                                                    onLoginSuccess(authData)
-                                                } catch {
-                                                    print("Login error: \(error)")
-                                                }
-                                            }
+                                do {
+                                let authData = try await loginVM.signIn()
+                                loginVM.resetFields()
+                                onLoginSuccess(authData)
+                                } catch {
+                                  print("Login error: \(error)")
+                            }
+                          }
                        
                         }
                         .padding(.bottom, 8)
