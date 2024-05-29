@@ -58,27 +58,26 @@ struct ExpensesView: View {
                     .background(Color.white)
                     .shadow(radius: 5)
                     
-                    ScrollView {
-                        LazyVStack(spacing: 0) {
-                            ForEach(transactionManager.filteredTransactions(startDate: startDate, endDate: endDate, category: selectedCategory)) { transaction in
-                                TransaktionCardView(transaktion: transaction)
-                                    .onTapGesture {
-                                        transactionToEdit = transaction
-                                        showEditTransactionView = true
+                    List {
+                        ForEach(transactionManager.filteredTransactions(startDate: startDate, endDate: endDate, category: selectedCategory)) { transaction in
+                            TransaktionCardView(transaktion: transaction)
+                                .onTapGesture {
+                                    transactionToEdit = transaction
+                                    showEditTransactionView = true
+                                }
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        transactionManager.deleteTransaction(userId: userId, transaction: transaction)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
                                     }
-                                    .swipeActions {
-                                        Button(role: .destructive) {
-                                            transactionManager.deleteTransaction(userId: userId, transaction: transaction)
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
-                                        }
-                                    }
-                                    .padding(.horizontal)
-                            }
+                                }
+                                .padding(.horizontal)
                         }
                     }
+                    .listStyle(PlainListStyle())
                 }
-                .background(.gray.opacity(0.15))
+                .background(Color.gray.opacity(0.15))
                 .onAppear {
                     transactionManager.fetchTransactions(userId: userId) {}
                 }
