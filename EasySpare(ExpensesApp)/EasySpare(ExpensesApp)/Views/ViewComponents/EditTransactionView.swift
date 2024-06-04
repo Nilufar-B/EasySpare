@@ -30,35 +30,41 @@ struct EditTransactionView: View {
         self._amount = State(initialValue: String(transaction.amount))
         self._dateAdded = State(initialValue: transaction.dateAdded)
         self._category = State(initialValue: transaction.category)
-        self._selectedTintColor = State(initialValue: TintColor(color: transaction.tintColor, value: .red)) 
+        self._selectedTintColor = State(initialValue: TintColor(color: transaction.tintColor, value: .red))
     }
 
     var body: some View {
-        NavigationView {
-            VStack {
-                Form {
-                    TextField("Title", text: $title)
-                    TextField("Remarks", text: $remarks)
-                    TextField("Amount", text: $amount)
-                        .keyboardType(.decimalPad)
-                    DatePicker("Date", selection: $dateAdded, displayedComponents: .date)
-                    Picker("Category", selection: $category) {
-                        ForEach(Category.allCases, id: \.self) { category in
-                            Text(category.rawValue).tag(category)
+        GeometryReader { geometry in
+            NavigationView {
+                VStack {
+                    Form {
+                        TextField("Title", text: $title)
+                        TextField("Remarks", text: $remarks)
+                        TextField("Amount", text: $amount)
+                            .keyboardType(.decimalPad)
+                        DatePicker("Date", selection: $dateAdded, displayedComponents: .date)
+                        Picker("Category", selection: $category) {
+                            ForEach(Category.allCases, id: \.self) { category in
+                                Text(category.rawValue).tag(category)
+                            }
+                        }
+                        Picker("Color", selection: $selectedTintColor) {
+                            ForEach(tints, id: \.id) { tintColor in
+                                Text(tintColor.color).tag(tintColor)
+                            }
                         }
                     }
-                    Picker("Color", selection: $selectedTintColor) {
-                        ForEach(tints, id: \.id) { tintColor in
-                            Text(tintColor.color).tag(tintColor)
-                        }
-                    }
+                    .frame(height: geometry.size.height * 0.8) // Adjust the form height relative to the total height
+                    
+                    CustomButton(title: "Save", didTap: {
+                        saveTransaction()
+                    })
+                    .padding(.bottom)
+                    .frame(maxWidth: geometry.size.width * 0.9) // Adjust button width based on available space
                 }
-                CustomButton(title: "Save", didTap: {
-                    saveTransaction()
-                })
+                .navigationTitle("Edit Transaction")
                 .padding()
             }
-            .navigationTitle("Edit Transaction")
         }
     }
     
@@ -69,7 +75,7 @@ struct EditTransactionView: View {
         }
         
         let updatedTransaction = Transactions(
-            id: transaction.id, 
+            id: transaction.id,
             title: title,
             remarks: remarks,
             amount: amountValue,
@@ -87,6 +93,18 @@ struct EditTransactionView: View {
 
 struct EditTransactionView_Previews: PreviewProvider {
     static var previews: some View {
-        EditTransactionView(isPresented: .constant(true), userId: "exampleUserId", transaction: Transactions(title: "Sample", remarks: "Sample Remarks", amount: 100.0, dateAdded: Date(), category: .expense, tintColor: tints.first!.color), onSave: {})
+        EditTransactionView(
+            isPresented: .constant(true),
+            userId: "exampleUserId",
+            transaction: Transactions(
+                title: "Sample",
+                remarks: "Sample Remarks",
+                amount: 100.0,
+                dateAdded: Date(),
+                category: .expense,
+                tintColor: tints.first!.color
+            ),
+            onSave: {}
+        )
     }
 }

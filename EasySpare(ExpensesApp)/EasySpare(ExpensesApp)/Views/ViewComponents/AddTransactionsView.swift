@@ -27,49 +27,51 @@ struct AddTransactionView: View {
     }
 
     var body: some View {
-        NavigationView {
-            VStack {
-                Form {
-                    
-                    TextField("Title", text: $title)
-                        .autocorrectionDisabled()
-                    TextField("Amount", text: $amount)
-                        .keyboardType(.decimalPad)
-                    DatePicker("Date", selection: $dateAdded, displayedComponents: .date)
-                    Picker("Category", selection: $category) {
-                        ForEach(Category.allCases, id: \.self) { category in
-                            Text(category.rawValue).tag(category)
+        GeometryReader { geometry in
+            NavigationView {
+                VStack {
+                    Form {
+                        TextField("Title", text: $title)
+                            .autocorrectionDisabled()
+                        TextField("Amount", text: $amount)
+                            .keyboardType(.decimalPad)
+                        DatePicker("Date", selection: $dateAdded, displayedComponents: .date)
+                        Picker("Category", selection: $category) {
+                            ForEach(Category.allCases, id: \.self) { category in
+                                Text(category.rawValue).tag(category)
+                            }
+                        }
+                        Picker("Expense Category", selection: $expenseCategory) {
+                            ForEach(ExpenseCategory.allCases) { category in
+                                Text(category.rawValue).tag(category)
+                                    .font(.callout)
+                            }
+                        }
+                        Picker("Color", selection: $selectedTintColor) {
+                            ForEach(tints, id: \.id) { tintColor in
+                                Text(tintColor.color).tag(tintColor)
+                            }
                         }
                     }
-                    Picker("Expense Category", selection: $expenseCategory) {
-                        ForEach(ExpenseCategory.allCases) { category in
-                            Text(category.rawValue).tag(category)
-                                .font(.callout)
-                        }
-                    }
-                    Picker("Color", selection: $selectedTintColor) {
-                        ForEach(tints, id: \.id) { tintColor in
-                            Text(tintColor.color).tag(tintColor)
-                            
-                        }
-                    }
+                    CustomButton(title: "Save", didTap: {
+                        saveTransaction()
+                    })
+                    .padding()
                 }
-                CustomButton(title: "Save", didTap: {
-                    saveTransaction()
-                })
+                .navigationTitle("Add Transaction")
+                .navigationBarTitleDisplayMode(.inline)
+                .frame(height: geometry.size.height * 0.8)  // Adjust the form height relative to the total height
                 .padding()
             }
-            .navigationTitle("Add Transaction")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
     func saveTransaction() {
-           guard let amountValue = Double(amount), !amountValue.isNaN else {
-               print("Invalid amount value")
-               return
-           }
-        
+        guard let amountValue = Double(amount), !amountValue.isNaN else {
+            print("Invalid amount value")
+            return
+        }
+
         let transaction = Transactions(
             title: title,
             remarks: expenseCategory.rawValue,
@@ -80,7 +82,7 @@ struct AddTransactionView: View {
         )
         FirestoreManager.shared.saveTransaction(transaction, userId: userId) {
             onSave()
-            isPresented = false 
+            isPresented = false
         }
     }
 }
